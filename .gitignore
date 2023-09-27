@@ -1,0 +1,13 @@
+.idea
+*/target
+*/dist
+frontend/src/css/styles.css
+frontend/src/css/styles.css.map
+backend/**/bin/
+backend/**/obj/
+backend/**//packages/
+backend/**/riderModule.iml
+backend/**/_ReSharper.Caches/
+*/uploads
+**.Production.**
+backend/LoveLiveCZ.sln.DotSettings.user

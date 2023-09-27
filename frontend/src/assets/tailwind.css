@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tooltip {
+    @apply invisible absolute transition-[visibility] duration-0;
+}
+
+.has-tooltip:hover .tooltip {
+    @apply visible z-50 delay-700;
+}

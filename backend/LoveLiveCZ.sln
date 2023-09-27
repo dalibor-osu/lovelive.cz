@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoveLiveCZ", "LoveLiveCZ\LoveLiveCZ.csproj", "{2E1F5172-ECC0-467C-9ADA-D6E534A64EF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoveLiveCZ.Models", "LoveLiveCZ.Models\LoveLiveCZ.Models.csproj", "{237F7FE2-503C-49E2-A8EF-8CE6E53DE99F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoveLiveCZ.Utilities", "LoveLiveCZ.Utilities\LoveLiveCZ.Utilities.csproj", "{4B1C4B32-46F3-4B18-BF90-55513290E6DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E1F5172-ECC0-467C-9ADA-D6E534A64EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1F5172-ECC0-467C-9ADA-D6E534A64EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1F5172-ECC0-467C-9ADA-D6E534A64EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1F5172-ECC0-467C-9ADA-D6E534A64EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{237F7FE2-503C-49E2-A8EF-8CE6E53DE99F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{237F7FE2-503C-49E2-A8EF-8CE6E53DE99F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{237F7FE2-503C-49E2-A8EF-8CE6E53DE99F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{237F7FE2-503C-49E2-A8EF-8CE6E53DE99F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1C4B32-46F3-4B18-BF90-55513290E6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1C4B32-46F3-4B18-BF90-55513290E6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1C4B32-46F3-4B18-BF90-55513290E6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1C4B32-46F3-4B18-BF90-55513290E6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

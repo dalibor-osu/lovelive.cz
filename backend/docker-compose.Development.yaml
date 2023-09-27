@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  database-postgresql:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./PostgreSQL/init.Development.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - services
+  
+  love-live-cz-api:
+    build:
+      context: .
+      dockerfile: LoveLiveCZ/Dockerfile
+    ports:
+      - '5100:5100'
+    depends_on:
+      - database-postgresql
+    volumes:
+      - ~/LoveLoveCZ/files:/files
+    networks:
+      - services
+
+networks:
+  services:
+
+volumes:
+  postgres:

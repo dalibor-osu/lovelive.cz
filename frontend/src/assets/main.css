@@ -1,0 +1,67 @@
+.header__animation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to left, transparent 0%, #df067f 40%, #df067f 60%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shine 15s linear infinite;
+  animation-delay: 0.4169347904s;
+}
+
+.space {
+  margin-top: 79px;
+}
+
+.main h1 {
+  margin: 0 auto 0 auto;
+}
+.main .main__img {
+  background-position: center;
+}
+
+/* ANIMATION */
+@keyframes shine {
+  0% {
+    background-position: 200% bottom;
+  }
+  100% {
+    background-position: -200% bottom;
+  }
+}
+.register__email-input:-webkit-autofill,
+.register__username-input:-webkit-autofill,
+.register__displayname-input:-webkit-autofill,
+.register__password-input:-webkit-autofill,
+.login__username-input:-webkit-autofill,
+.login__password-input:-webkit-autofill {
+  -webkit-text-fill-color: #df067f;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.main__all-sunshine {
+  pointer-events: none;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border: solid #c4066e 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #df067f;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c4066e;
+}
+
+/*# sourceMappingURL=main.css.map */
