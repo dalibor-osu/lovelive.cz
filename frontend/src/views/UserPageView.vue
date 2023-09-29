@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import PostCard from "../components/posts/PostCard.vue";
-</script>
-
 <template>
   <div class="user-container">
     <img :src="user?.profilePicture" alt="user photo">
@@ -22,17 +18,23 @@ import type { Post } from "@/interfaces/post/post";
 import type { User } from "@/interfaces/user/user";
 import { usePostStore } from "@/stores/postStore";
 import { useUserStore } from "@/stores/userStore";
+import PostCard from "../components/posts/PostCard.vue";
 
 export default defineComponent({
+
+	components: {
+		PostCard,
+	},
+
 	data() {
 		return {
-			posts: [] as Array<Post> | null,
+			posts: [] as Array<Post>,
 			user: null as User | null,
 		};
 	},
 
 	computed: {
-		getPosts(): Array<Post> | null {
+		getPosts(): Array<Post> {
 			const postStore = usePostStore();
 			return postStore.posts;
 		},
@@ -45,7 +47,7 @@ export default defineComponent({
 	},
 
 	watch: {
-		getPosts(newValue: Array<Post> | null) {
+		getPosts(newValue: Array<Post>) {
 			this.posts = newValue;
 		},
 
