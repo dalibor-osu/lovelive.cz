@@ -1,14 +1,6 @@
-<script setup lang="ts">
-import NewPostForm from "../components/posts/NewPostForm.vue";
-import PostCard from "../components/posts/PostCard.vue";
-import { useUserStore } from "@/stores/userStore";
-
-const userStore = useUserStore();
-</script>
-
 <template>
   <div class="post my-5">
-    <div v-if="userStore.isLoggedIn" class="post__container flex flex-col items-center">
+    <div v-if="isLoggedIn()" class="post__container flex flex-col items-center">
       <NewPostForm />
       <ul class="post-list">
         <li v-for="post in posts" :key="post.id" class="mt-10">
@@ -30,8 +22,16 @@ const userStore = useUserStore();
 import { defineComponent } from "vue";
 import type { Post } from "@/interfaces/post/post";
 import { usePostStore } from "@/stores/postStore";
+import NewPostForm from "../components/posts/NewPostForm.vue";
+import PostCard from "../components/posts/PostCard.vue";
+import { useUserStore } from "@/stores/userStore";
 
 export default defineComponent({
+	components: {
+		NewPostForm,
+		PostCard,
+	},
+
 	data() {
 		return {
 			posts: [] as Array<Post> | null,
@@ -60,6 +60,10 @@ export default defineComponent({
 	},
 
 	methods: {
+		isLoggedIn() {
+			const userStore = useUserStore();
+			return userStore.isLoggedIn;
+		},
 		async loadMorePosts() {
 			const postStore = usePostStore();
 			const lastPost : Post | null = this.posts?.slice(-1)[0] ?? null;

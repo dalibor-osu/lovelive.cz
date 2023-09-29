@@ -25,7 +25,7 @@ const refreshToken = (): string | null => {
 const usePostStore = defineStore("post", {
 	state: (): PostState => {
 		return {
-			posts: null as Array<Post> | null,
+			posts: [] as Array<Post>,
 		};
 	},
 
@@ -98,7 +98,7 @@ const usePostStore = defineStore("post", {
 });
 
 interface PostState {
-    posts: Array<Post> | null,
+    posts: Array<Post>,
 }
 
 export { usePostStore };
