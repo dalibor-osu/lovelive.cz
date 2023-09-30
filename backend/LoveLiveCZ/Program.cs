@@ -37,7 +37,7 @@ builder.Services.AddScoped<IPostDatabaseService, PostDatabaseService>();
 builder.Services.AddScoped<IUserDatabaseService, UserDatabaseService>();
 builder.Services.AddScoped<IAttachmentDatabaseService, AttachmentDatabaseService>();
 
-builder.Services.AddSingleton<ImageFileVerifier>();
+builder.Services.AddScoped<ImageFileVerifier>();
 builder.Services.AddSingleton<Validator>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

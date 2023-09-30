@@ -5,7 +5,7 @@ namespace LoveLiveCZ.Files;
 // Credits: https://khalidabuhakmeh.com/verify-user-file-uploads-with-dotnet
 public class ImageFileVerifier : FileVerifier
 {
-    static ImageFileVerifier()
+    public ImageFileVerifier()
     {
         Types = new List<FileType>
         {
