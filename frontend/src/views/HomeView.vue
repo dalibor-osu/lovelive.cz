@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import WelcomeParticle from '@/components/main/WelcomeParticle.vue';
 import WelcomeImgSrc from '../assets/img/all_sunshine.png';
+import Newsletter from '@/components/footer/Newsletter.vue';
 
 const welcomeImg = new Image();
 welcomeImg.src = WelcomeImgSrc;
@@ -28,4 +29,5 @@ welcomeImg.src = WelcomeImgSrc;
       <WelcomeParticle class="main__particles absolute grid w-full h-full" />
     </section>
   </main>
+  <Newsletter />
 </template>
