@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
-import { darkColor } from "../../assets/helper";
+import constHelper from "../../assets/helper";
 
 const userStore = useUserStore();
 const menu: HTMLDivElement | null = document.querySelector("div.menu");
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="header__dropdown mobile:hidden relative text-left">
             <div class="header__dropdown-item">
                 <button id="menu-button" type="button"
-                    :class="`inline-flex w-full justify-center rounded-xl bg-white px-3 py-3 text-sm font-semibold text-[#df067f] shadow-sm ring-[2px] ring-inset ring-[#df067f] hover:bg-gradient-to-br hover:from-[#f53aa1] hover:from-10% hover:via-[#b30765] hover:via-70% hover:to-[#960052] hover:to-90% hover:text-white hover:ring-0 group dark:ring-white dark:bg-[${darkColor}] dark:hover:from-white dark:hover:to-white dark:text-white dark:hover:text-black`">
+                    :class="`inline-flex w-full justify-center rounded-xl bg-white px-3 py-3 text-sm font-semibold text-[#df067f] shadow-sm ring-[2px] ring-inset ring-[#df067f] hover:bg-gradient-to-br hover:from-[#f53aa1] hover:from-10% hover:via-[#b30765] hover:via-70% hover:to-[#960052] hover:to-90% hover:text-white hover:ring-0 group dark:ring-white dark:bg-[${constHelper.darkColor}] dark:hover:from-white dark:hover:to-white dark:text-white dark:hover:text-black`">
                     <spa>More</spa>
                     <svg :class="`-mr-1 h-5 w-5 text-[#df067f] group-hover:text-white dark:text-white dark:group-hover:text-black`" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd"
@@ -60,32 +60,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
             </div>
             <div id="dropdown-content"
-                :class="`dropdown__content hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#df067f] ring-opacity-5 focus:outline-none dark:ring-white dark:bg-[${darkColor}]`"
+                :class="`dropdown__content hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#df067f] ring-opacity-5 focus:outline-none dark:ring-white dark:bg-[${constHelper.darkColor}]`"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="py-1 flex flex-col" role="none">
                     <RouterLink to="/" type="button"
-                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`"
+                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]`"
                         active-class="header__link--active" data-link-id="home">
                         <span>Home</span>
                     </RouterLink>
                     <RouterLink to="/about" type="button"
-                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`"
+                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]`"
                         active-class="header__link--active" data-link-id="about">
                         <span>About</span>
                     </RouterLink>
                     <RouterLink to="/posts" type="button"
-                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`"
+                    :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]`"
                         active-class="header__link--active" data-link-id="posts">
                         <span>Post</span>
                     </RouterLink>
                     <div v-if="!userStore.isLoggedIn" class="flex flex-col">
                         <RouterLink to="/login" type="button"
-                        :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`"
+                        :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]`"
                             active-class="header__link--active" data-link-id="login">
                             <span>Log in</span>
                         </RouterLink>
                         <RouterLink to="/register" type="button"
-                            :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`"
+                            :class="`header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]`"
                             active-class="header__link--active" data-link-id="register">
                             <span>Sign up</span>
                         </RouterLink>
