@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LoveLiveCZ.Utilities.Enums;
 using LoveLiveCZ.Utilities.Interfaces;
 using static LoveLiveCZ.Models.Database.Constants;
 
@@ -54,6 +55,12 @@ public class User : IIdentifiable, IDisplayNameable, IUsernameable, IEmail, IDel
     /// <inheritdoc cref="IDeletable"/>
     [Column(IDeletable.ColumnName)]
     public bool Deleted { get; set; }
+    
+    /// <summary>
+    /// Gets or sets user roles
+    /// </summary>
+    [NotMapped]
+    public List<UserRoleType> Roles { get; set; }
 
     /// <inheritdoc cref="ICreated"/>
     [Column(ICreated.ColumnName)]

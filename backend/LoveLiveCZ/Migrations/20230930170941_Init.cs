@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LoveLiveCZ.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";");
+            migrationBuilder.Sql(@"CREATE EXTENSION IF NOT EXISTS ""uuid-ossp"";");
             
             migrationBuilder.EnsureSchema(
                 name: "love_live_cz");
@@ -22,11 +22,13 @@ namespace LoveLiveCZ.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Username = table.Column<string>(type: "text", nullable: true),
+                    DisplayName = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    Username = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
                     ProfilePicture = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Bio = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Email = table.Column<string>(type: "character varying(320)", maxLength: 320, nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
                     Updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
                 },
@@ -41,11 +43,11 @@ namespace LoveLiveCZ.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
-                    Text = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Text = table.Column<string>(type: "character varying(5000)", maxLength: 5000, nullable: true),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
-                    Updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    Updated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,13 +62,33 @@ namespace LoveLiveCZ.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Roles",
+                schema: "love_live_cz",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_Roles_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "love_live_cz",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attachments",
                 schema: "love_live_cz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     PostId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Path = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
                 },
@@ -80,6 +102,39 @@ namespace LoveLiveCZ.Migrations
                         principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Attachments_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "love_live_cz",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                schema: "love_live_cz",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_Likes_Posts_PostId",
+                        column: x => x.PostId,
+                        principalSchema: "love_live_cz",
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Likes_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "love_live_cz",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -90,17 +145,28 @@ namespace LoveLiveCZ.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attachments_Path",
-                schema: "love_live_cz",
-                table: "Attachments",
-                column: "Path",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Attachments_PostId",
                 schema: "love_live_cz",
                 table: "Attachments",
                 column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attachments_UserId",
+                schema: "love_live_cz",
+                table: "Attachments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_PostId",
+                schema: "love_live_cz",
+                table: "Likes",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_UserId",
+                schema: "love_live_cz",
+                table: "Likes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_Id",
@@ -114,6 +180,13 @@ namespace LoveLiveCZ.Migrations
                 schema: "love_live_cz",
                 table: "Posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_UserId_Role",
+                schema: "love_live_cz",
+                table: "Roles",
+                columns: new[] { "UserId", "Role" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
@@ -145,6 +218,14 @@ namespace LoveLiveCZ.Migrations
                 schema: "love_live_cz");
 
             migrationBuilder.DropTable(
+                name: "Likes",
+                schema: "love_live_cz");
+
+            migrationBuilder.DropTable(
+                name: "Roles",
+                schema: "love_live_cz");
+
+            migrationBuilder.DropTable(
                 name: "Posts",
                 schema: "love_live_cz");
 
@@ -152,7 +233,7 @@ namespace LoveLiveCZ.Migrations
                 name: "Users",
                 schema: "love_live_cz");
             
-            migrationBuilder.Sql("DROP EXTENSION IF NOT EXISTS \"uuid-ossp\";");
+            migrationBuilder.Sql(@"DROP EXTENSION IF NOT EXISTS ""uuid-ossp"";");
         }
     }
 }

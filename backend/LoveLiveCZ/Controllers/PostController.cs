@@ -66,13 +66,14 @@ namespace LoveLiveCZ.Controllers
         /// <param name="postDto">Post to create</param>
         /// <returns>Created post as <see cref="PostDto"/></returns>
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PostDto>> PostNewPost([FromForm] NewPostDto postDto)
         {
             var userId = User.GetUserId();
 
-            if (postDto.File.Any(file => !_imageFileVerifier.Verify(file)))
+            if (postDto?.File?.Any(file => !_imageFileVerifier.Verify(file)) ?? false)
             {
                 return BadRequest("Invalid file type");
             }

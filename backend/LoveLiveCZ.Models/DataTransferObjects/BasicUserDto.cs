@@ -1,3 +1,5 @@
+using LoveLiveCZ.Utilities.Enums;
+
 namespace LoveLiveCZ.Models.DataTransferObjects;
 
 public class BasicUserDto
@@ -17,4 +19,9 @@ public class BasicUserDto
     /// Gets or sets path to profile picture
     /// </summary>
     public string ProfilePicture { get; set; }
+    
+    /// <summary>
+    /// Gets or sets roles of the user
+    /// </summary>
+    public IEnumerable<UserRoleType> Roles { get; set; }
 }

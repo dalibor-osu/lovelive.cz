@@ -3,7 +3,6 @@ using System;
 using LoveLiveCZ.Models.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,11 +11,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LoveLiveCZ.Migrations
 {
     [DbContext(typeof(LoveLiveCzDatabaseContext))]
-    [Migration("20230831204043_Initial")]
-    partial class Initial
+    partial class LoveLiveCzDatabaseContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +37,9 @@ namespace LoveLiveCZ.Migrations
                         .HasColumnName("Created")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<string>("Path")
+                    b.Property<string>("Name")
                         .HasColumnType("text")
-                        .HasColumnName("Path");
+                        .HasColumnName("Name");
 
                     b.Property<Guid>("PostId")
                         .HasColumnType("uuid")
@@ -52,17 +49,37 @@ namespace LoveLiveCZ.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("Type");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("Path")
-                        .IsUnique();
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attachments", "love_live_cz");
+                });
+
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Like", b =>
+                {
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("PostId");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Attachments", "love_live_cz");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes", "love_live_cz");
                 });
 
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Post", b =>
@@ -80,11 +97,14 @@ namespace LoveLiveCZ.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
+                        .HasDefaultValue(false)
                         .HasColumnName("Deleted");
 
                     b.Property<string>("Text")
-                        .HasColumnType("text")
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)")
                         .HasColumnName("Text");
 
                     b.Property<DateTimeOffset>("Updated")
@@ -115,6 +135,11 @@ namespace LoveLiveCZ.Migrations
                         .HasColumnName("Id")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("Bio");
+
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -122,17 +147,27 @@ namespace LoveLiveCZ.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
+                        .HasDefaultValue(false)
                         .HasColumnName("Deleted");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("DisplayName");
+
                     b.Property<string>("Email")
-                        .HasColumnType("text")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("character varying(320)")
                         .HasColumnName("Email");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("Name");
+                        .HasColumnName("PasswordHash");
 
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("text")
@@ -145,7 +180,9 @@ namespace LoveLiveCZ.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Username")
-                        .HasColumnType("text")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
                         .HasColumnName("Username");
 
                     b.HasKey("Id");
@@ -162,6 +199,22 @@ namespace LoveLiveCZ.Migrations
                     b.ToTable("Users", "love_live_cz");
                 });
 
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.UserRole", b =>
+                {
+                    b.Property<int>("Role")
+                        .HasColumnType("integer")
+                        .HasColumnName("Role");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasIndex("UserId", "Role")
+                        .IsUnique();
+
+                    b.ToTable("Roles", "love_live_cz");
+                });
+
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Attachment", b =>
                 {
                     b.HasOne("LoveLiveCZ.Models.Database.Models.Post", "Post")
@@ -170,10 +223,48 @@ namespace LoveLiveCZ.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Like", b =>
+                {
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Post", b =>
+                {
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.UserRole", b =>
                 {
                     b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
                         .WithMany()
