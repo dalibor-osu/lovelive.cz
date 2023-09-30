@@ -66,7 +66,6 @@ namespace LoveLiveCZ.Controllers
         /// <param name="postDto">Post to create</param>
         /// <returns>Created post as <see cref="PostDto"/></returns>
         [HttpPost]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<PostDto>> PostNewPost([FromForm] NewPostDto postDto)
