@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LoveLiveCZ.Migrations
 {
-    [DbContext(typeof(LoveLiveCZDatabaseContext))]
+    [DbContext(typeof(LoveLiveCzDatabaseContext))]
     partial class LoveLiveCZDatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -65,6 +65,23 @@ namespace LoveLiveCZ.Migrations
                     b.ToTable("Attachments", "love_live_cz");
                 });
 
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Like", b =>
+                {
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("PostId");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes", "love_live_cz");
+                });
+
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Post", b =>
                 {
                     b.Property<Guid>("Id")
@@ -86,7 +103,8 @@ namespace LoveLiveCZ.Migrations
                         .HasColumnName("Deleted");
 
                     b.Property<string>("Text")
-                        .HasColumnType("text")
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)")
                         .HasColumnName("Text");
 
                     b.Property<DateTimeOffset>("Updated")
@@ -117,6 +135,11 @@ namespace LoveLiveCZ.Migrations
                         .HasColumnName("Id")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("Bio");
+
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -131,12 +154,14 @@ namespace LoveLiveCZ.Migrations
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
                         .HasColumnName("DisplayName");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(320)
+                        .HasColumnType("character varying(320)")
                         .HasColumnName("Email");
 
                     b.Property<string>("PasswordHash")
@@ -156,7 +181,8 @@ namespace LoveLiveCZ.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
                         .HasColumnName("Username");
 
                     b.HasKey("Id");
@@ -171,6 +197,22 @@ namespace LoveLiveCZ.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", "love_live_cz");
+                });
+
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.UserRole", b =>
+                {
+                    b.Property<int>("Role")
+                        .HasColumnType("integer")
+                        .HasColumnName("Role");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("UserId");
+
+                    b.HasIndex("UserId", "Role")
+                        .IsUnique();
+
+                    b.ToTable("Roles", "love_live_cz");
                 });
 
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Attachment", b =>
@@ -192,7 +234,37 @@ namespace LoveLiveCZ.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Like", b =>
+                {
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.Post", b =>
+                {
+                    b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LoveLiveCZ.Models.Database.Models.UserRole", b =>
                 {
                     b.HasOne("LoveLiveCZ.Models.Database.Models.User", "User")
                         .WithMany()

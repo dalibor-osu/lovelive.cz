@@ -10,6 +10,7 @@ public static class Constants
         public const string Username = "Username";
         public const string ProfilePicture = "ProfilePicture";
         public const string PasswordHash = "PasswordHash";
+        public const string Bio = "Bio";
     }
 
     public static class PostsTable
@@ -25,8 +26,23 @@ public static class Constants
         public const string TableName = "Attachments";
         public const string Prefix = "atm";
 
-        public const string Path = "Path";
         public const string Type = "Type";
         public const string PostIdentifier = "PostId";
+    }
+
+    public static class LikesTable
+    {
+        public const string TableName = "Likes";
+        public const string Prefix = "likes";
+        
+        public const string PostIdentifier = "PostId";
+    }
+    
+    public static class UserRolesTable
+    {
+        public const string TableName = "Roles";
+        public const string Prefix = "roles";
+        
+        public const string Role = "Role";
     }
 }
