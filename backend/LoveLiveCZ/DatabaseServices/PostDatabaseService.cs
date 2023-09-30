@@ -4,6 +4,7 @@ using Dapper;
 using LoveLiveCZ.DatabaseServices.Interfaces;
 using LoveLiveCZ.Models.Database.Models;
 using LoveLiveCZ.Utilities.Base;
+using LoveLiveCZ.Utilities.Enums;
 using LoveLiveCZ.Utilities.Extensions;
 using LoveLiveCZ.Utilities.Interfaces;
 using LoveLiveCZ.Utilities.Models;
@@ -41,8 +42,12 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
         
         StringBuilder query = new($@"
             SELECT * FROM love_live_cz.""{PostsTable.TableName}"" AS {PostsTable.Prefix}
+                
                 JOIN love_live_cz.""{UsersTable.TableName}"" AS {UsersTable.Prefix}
                     ON {PostsTable.Prefix}.""{IUserIdentifiable.ColumnName}"" = {UsersTable.Prefix}.""{IIdentifiable.ColumnName}""
+                
+                LEFT JOIN love_live_cz.""{UserRolesTable.TableName}"" AS {UserRolesTable.Prefix}
+                    ON {UsersTable.Prefix}.""{IIdentifiable.ColumnName}"" = {UserRolesTable.Prefix}.""{IUserIdentifiable.ColumnName}""
         ");
         
         if (options.ParentId.HasValue)
@@ -61,12 +66,26 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
         query.AppendListOptions(options, PostsTable.Prefix);
         
         var connection = ConnectionFactory();
-        var result = await connection.QueryAsync<Post, User, Post>(query.ToString(), (post, user) =>
+        var result = new Dictionary<Guid, Post>();
+        
+        await connection.QueryAsync<Post, User, UserRole, Post>(query.ToString(), (post, user, role) =>
         {
-            post.User = user;
+            result.TryAdd(post.Id, post);
+            
+            if (result[post.Id].User == null)
+            {
+                result[post.Id].User = user;
+                result[post.Id].User.Roles = new List<UserRoleType>();
+            }
+            
+            if (role != null)
+            {
+                result[post.Id].User.Roles.Add(role.Role);
+            }
             return post;
-        }, parameters);
-        return result.ToReadOnlyCollection();
+        }, parameters, splitOn: IUserIdentifiable.ColumnName);
+        
+        return result.Select(x => x.Value).ToReadOnlyCollection();
     }
 
     public async Task<Post> CreatePostAsync(Post post)

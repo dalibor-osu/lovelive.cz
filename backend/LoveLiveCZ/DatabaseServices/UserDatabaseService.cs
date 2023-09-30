@@ -3,8 +3,9 @@ using Dapper;
 using LoveLiveCZ.DatabaseServices.Interfaces;
 using LoveLiveCZ.Models.Database.Models;
 using LoveLiveCZ.Utilities.Base;
+using LoveLiveCZ.Utilities.Enums;
 using LoveLiveCZ.Utilities.Interfaces;
-using static LoveLiveCZ.Models.Database.Constants.UsersTable;
+using static LoveLiveCZ.Models.Database.Constants;
 
 namespace LoveLiveCZ.DatabaseServices;
 
@@ -17,11 +18,11 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
     public async Task<User> CreateUserAsync(NewUser user)
     {
         const string query = $@"
-            INSERT INTO love_live_cz.""{TableName}"" (
+            INSERT INTO love_live_cz.""{UsersTable.TableName}"" (
                 ""{IDisplayNameable.ColumnName}"",
-                ""{Username}"",
+                ""{UsersTable.Username}"",
                 ""{IEmail.ColumnName}"",
-                ""{PasswordHash}""
+                ""{UsersTable.PasswordHash}""
             ) VALUES (
                 @displayName,
                 @username,
@@ -40,11 +41,28 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
     {
         const string query = $@"
             SELECT *
-            FROM love_live_cz.""{TableName}""
-            WHERE ""{IIdentifiable.ColumnName}"" = @id;";
+                FROM love_live_cz.""{UsersTable.TableName}"" AS {UsersTable.Prefix}
+                LEFT JOIN love_live_cz.""{UserRolesTable.TableName}"" AS {UserRolesTable.Prefix}
+                    ON {UsersTable.Prefix}.""{IIdentifiable.ColumnName}"" = {UserRolesTable.Prefix}.""{IUserIdentifiable.ColumnName}""
+            WHERE {UsersTable.Prefix}.""{IIdentifiable.ColumnName}"" = @id;";
         
+        User result = null;
         var connection = ConnectionFactory();
-        var result = await connection.QuerySingleOrDefaultAsync<User>(query, new { id });
+        await connection.QueryAsync<User, UserRole, User>(query, (user, role) =>
+        {
+            if (result == null)
+            {
+                result = user;
+                result.Roles = new List<UserRoleType>();
+            }
+
+            if (role != null)
+            {
+                result.Roles.Add(role.Role);
+            }
+            
+            return user;
+        }, new { id }, splitOn: IUserIdentifiable.ColumnName);
         return result;
     }
 
@@ -52,11 +70,28 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
     {
         const string query = $@"
             SELECT *
-            FROM love_live_cz.""{TableName}""
-            WHERE ""{Username}"" = @username;";
+                FROM love_live_cz.""{UsersTable.TableName}"" AS {UsersTable.Prefix}
+                LEFT JOIN love_live_cz.""{UserRolesTable.TableName}"" AS {UserRolesTable.Prefix}
+                    ON {UsersTable.Prefix}.""{IIdentifiable.ColumnName}"" = {UserRolesTable.Prefix}.""{IUserIdentifiable.ColumnName}""
+            WHERE {UsersTable.Prefix}.""{UsersTable.Username}"" = @username;";
         
+        User result = null;
         var connection = ConnectionFactory();
-        var result = await connection.QuerySingleOrDefaultAsync<User>(query, new { username });
+        await connection.QueryAsync<User, UserRole, User>(query, (user, role) =>
+        {
+            if (result == null)
+            {
+                result = user;
+                result.Roles = new List<UserRoleType>();
+            }
+
+            if (role != null)
+            {
+                result.Roles.Add(role.Role);
+            }
+            
+            return user;
+        }, new { username }, splitOn: IUserIdentifiable.ColumnName);
         return result;
     }
 
@@ -71,8 +106,8 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
         const string query = $@"
             SELECT EXISTS (
                 SELECT 1
-                FROM love_live_cz.""{TableName}""
-                WHERE ""{Username}"" = @username
+                FROM love_live_cz.""{UsersTable.TableName}""
+                WHERE ""{UsersTable.Username}"" = @username
                 OR ""{IEmail.ColumnName}"" = @email
             );";
         
@@ -85,10 +120,10 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
     public async Task<User> UpdateAsync(User user)
     {
         const string query = $@"
-            UPDATE love_live_cz.""{TableName}""
+            UPDATE love_live_cz.""{UsersTable.TableName}""
                 SET
                     ""{IDisplayNameable.ColumnName}"" = @displayName,
-                    ""{ProfilePicture}"" = @profilePicture
+                    ""{UsersTable.ProfilePicture}"" = @profilePicture
             WHERE ""{IIdentifiable.ColumnName}"" = @id
             RETURNING *;
         ";
@@ -101,9 +136,9 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
     public async Task<string> GetPasswordHashByUsernameAsync(string username)
     {
         const string query = $@"
-            SELECT ""{PasswordHash}""
-            FROM love_live_cz.""{TableName}""
-            WHERE ""{Username}"" = @username;
+            SELECT ""{UsersTable.PasswordHash}""
+            FROM love_live_cz.""{UsersTable.TableName}""
+            WHERE ""{UsersTable.Username}"" = @username;
         ";
         
         var connection = ConnectionFactory();

@@ -22,15 +22,6 @@ public class Post : IIdentifiable, IUserIdentifiable, IDeletable, ICreated, IUpd
 
     public List<Attachment> Attachments { get; set; }
 
-    /// <inheritdoc cref="IUserIdentifiable"/>
-    [Column(IUserIdentifiable.ColumnName)]
-    public Guid UserId { get; set; }
-
-    /// <summary>
-    /// Gets or sets User author of a post
-    /// </summary>
-    public User User { get; set; }
-
     /// <inheritdoc cref="IDeletable"/>
     [Column(IDeletable.ColumnName)]
     public bool Deleted { get; set; }
@@ -42,4 +33,13 @@ public class Post : IIdentifiable, IUserIdentifiable, IDeletable, ICreated, IUpd
     /// <inheritdoc cref="IUpdated"/>
     [Column(IUpdated.ColumnName)]
     public DateTimeOffset Updated { get; set; }
+    
+    /// <inheritdoc cref="IUserIdentifiable"/>
+    [Column(IUserIdentifiable.ColumnName)]
+    public Guid UserId { get; set; }
+
+    /// <summary>
+    /// Gets or sets User author of a post
+    /// </summary>
+    public User User { get; set; }
 }

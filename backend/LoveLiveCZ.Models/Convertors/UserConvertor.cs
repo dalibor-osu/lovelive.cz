@@ -12,7 +12,8 @@ public static class UserConvertor
         {
             Id = source.Id,
             DisplayName = source.DisplayName,
-            ProfilePicture = source.ProfilePicture
+            ProfilePicture = source.ProfilePicture,
+            Roles = source.Roles
         };
     }
     
@@ -25,6 +26,7 @@ public static class UserConvertor
             Username = source.Username,
             ProfilePicture = source.ProfilePicture,
             Created = source.Created,
+            Roles = source.Roles
         };
     }
     
@@ -38,7 +40,8 @@ public static class UserConvertor
             ProfilePicture = source.ProfilePicture,
             Email = source.Email,
             Created = source.Created,
-            Updated = source.Updated
+            Updated = source.Updated,
+            Roles = source.Roles
         };
     }
 

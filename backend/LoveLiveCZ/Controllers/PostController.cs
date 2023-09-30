@@ -72,7 +72,7 @@ namespace LoveLiveCZ.Controllers
         {
             var userId = User.GetUserId();
 
-            if (postDto.File.Any(file => !_imageFileVerifier.Verify(file)))
+            if (postDto?.File?.Any(file => !_imageFileVerifier.Verify(file)) ?? false)
             {
                 return BadRequest("Invalid file type");
             }
