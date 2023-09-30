@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: true,
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: 'class',
   content: [
     './public/**/*.html',
     './src/**/*.{js,jsx,ts,tsx,vue}',
@@ -11,7 +11,7 @@ module.exports = {
         'roboto': ['Roboto', 'sans-serif'],
     },
     extend: {
-      screens: {
+      variants: {
         'mobile': { 'min': '0px', 'max': '959.9px' },
         'tablet': { 'min': '959.9px', 'max': '1899.9px' },
       },
