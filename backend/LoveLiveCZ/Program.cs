@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using LoveLiveCZ.DatabaseServices;
 using LoveLiveCZ.DatabaseServices.Interfaces;
+using LoveLiveCZ.Files;
 using LoveLiveCZ.Manager;
 using LoveLiveCZ.Models.Database;
 using LoveLiveCZ.Validation;
@@ -14,7 +15,8 @@ using Npgsql;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 // Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler= ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -35,6 +37,7 @@ builder.Services.AddScoped<IPostDatabaseService, PostDatabaseService>();
 builder.Services.AddScoped<IUserDatabaseService, UserDatabaseService>();
 builder.Services.AddScoped<IAttachmentDatabaseService, AttachmentDatabaseService>();
 
+builder.Services.AddScoped<ImageFileVerifier>();
 builder.Services.AddSingleton<Validator>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -48,7 +51,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = configuration["Jwt:Issuer"],
             ValidAudience = configuration["Jwt:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? throw new InvalidOperationException()))
+            IssuerSigningKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? throw new InvalidOperationException()))
         };
     });
 
