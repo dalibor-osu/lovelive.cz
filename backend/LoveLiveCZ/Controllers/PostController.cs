@@ -1,3 +1,4 @@
+using LoveLiveCZ.Files;
 using LoveLiveCZ.Manager;
 using LoveLiveCZ.Models.DataTransferObjects;
 using LoveLiveCZ.Utilities.Extensions;
@@ -13,10 +14,12 @@ namespace LoveLiveCZ.Controllers
     public class PostController : ControllerBase
     {
         private readonly PostManager _postManager;
+        private readonly ImageFileVerifier _imageFileVerifier;
 
-        public PostController(PostManager postManager)
+        public PostController(PostManager postManager, ImageFileVerifier imageFileVerifier)
         {
             _postManager = postManager;
+            _imageFileVerifier = imageFileVerifier;
         }
 
         /// <summary>
@@ -37,10 +40,10 @@ namespace LoveLiveCZ.Controllers
             {
                 return NotFound();
             }
-            
+
             return Ok(result);
         }
-        
+
         /// <summary>
         /// Asynchronously lists posts
         /// </summary>
@@ -61,7 +64,6 @@ namespace LoveLiveCZ.Controllers
         /// Asynchronously creates a new post for current user
         /// </summary>
         /// <param name="postDto">Post to create</param>
-        /// <param name="file">Files attached to a post</param>
         /// <returns>Created post as <see cref="PostDto"/></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -69,6 +71,12 @@ namespace LoveLiveCZ.Controllers
         public async Task<ActionResult<PostDto>> PostNewPost([FromForm] NewPostDto postDto)
         {
             var userId = User.GetUserId();
+
+            if (postDto.File.Any(file => !_imageFileVerifier.Verify(file)))
+            {
+                return BadRequest("Invalid file type");
+            }
+
             var result = await _postManager.PostNewPost(userId, postDto);
             return Ok(result);
         }
