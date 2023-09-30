@@ -18,7 +18,7 @@
                        accept="image/jpeg, image/png, image/gif, image/svg" class="hidden">
               </label>
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 16 20">
                   <path
@@ -27,7 +27,7 @@
                 <span class="sr-only">Embed map</span>
               </button>
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 16 20">
                   <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
@@ -37,7 +37,7 @@
                 <span class="sr-only">Format code</span>
               </button>
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -48,7 +48,7 @@
             </div>
             <div class="flex flex-wrap items-center space-x-1 sm:pl-4 mobile:sm:pl-0">
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                      viewBox="0 0 21 18">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -58,7 +58,7 @@
                 <span class="sr-only">Add list</span>
               </button>
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -67,7 +67,7 @@
                 <span class="sr-only">Settings</span>
               </button>
               <button type="button"
-                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8]">
+                      class="p-2 text-[#e0007c] rounded cursor-pointer hover:hover:text-[#960052] hover:bg-[#ffeff8] hidden">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 20 20">
                   <path
