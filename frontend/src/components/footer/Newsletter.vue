@@ -1,13 +1,13 @@
 <template>
-    <section id="footer-social" class="w-full h-auto py-[71px] bg-white font-sans font-bold">
+    <section id="footer-social" class="w-full h-auto py-[71px] bg-white font-sans font-bold dark:bg-[#282b30]">
         <div class="footer__container max-w-[1280px] tablet:max-w-[720px] mobile:max-w-[320px] mx-auto flex justify-center mobile:justify-start">
             <form class="newsletter__form flex justify-center items-center gap-7 flex-wrap mobile:justify-start">
                 <div class="newsletter__form-checkbox">
-                    <h2 class="text-[#df067f] text-[20px] border-[#df067f]">Subscribe to our newsletter</h2>
+                    <h2 class="text-[#df067f] text-[20px] border-[#df067f] dark:text-white">Subscribe to our newsletter</h2>
                     <div class="flex items-center gap-2">
                         <input type="checkbox" id="consent" name="consent"
-                            class="w-4 h-4 rounded-xl ring-2 ring-[#df067f] appearance-none checked:bg-gradient-to-br checked:from-[#960052] checked:to-[#f53aa1] checked:ring-0" />
-                        <label for="consent" class="text-[#df067f] text-[14px]">
+                            class="w-4 h-4 rounded-xl ring-2 ring-[#df067f] appearance-none checked:bg-gradient-to-br checked:from-[#960052] checked:to-[#f53aa1] checked:ring-0 dark:ring-white dark:checked:from-white dark:checked:to-white" />
+                        <label for="consent" class="text-[#df067f] text-[14px] dark:text-white">
                             I agree to the processing of personal data
                         </label>
                     </div>
