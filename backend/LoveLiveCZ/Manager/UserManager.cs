@@ -111,8 +111,11 @@ public class UserManager
             new(JwtRegisteredClaimNames.Email, user.Email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
-        
-        claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
+
+        if (user.Roles?.Any() ?? false)
+        {
+            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
+        }
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
