@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <RouterLink to="/login" type="button"
                             class="header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5]"
                             active-class="header__link--active" data-link-id="login">
-                            <span>Login in</span>
+                            <span>Log in</span>
                         </RouterLink>
                         <RouterLink to="/register" type="button"
                             class="header__link-dropdown-item hidden font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5]"
