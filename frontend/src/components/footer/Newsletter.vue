@@ -1,5 +1,5 @@
 <template>
-    <section id="footer-social" class="w-full h-auto py-[71px] bg-white">
+    <section id="footer-social" class="w-full h-auto py-[71px] bg-white font-sans font-bold">
         <div class="footer__container max-w-[1280px] tablet:max-w-[720px] mobile:max-w-[320px] mx-auto flex justify-center mobile:justify-start">
             <form class="newsletter__form flex justify-center items-center gap-7 flex-wrap mobile:justify-start">
                 <div class="newsletter__form-checkbox">
