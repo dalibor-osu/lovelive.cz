@@ -29,10 +29,10 @@ public class PostManager
             post.Attachments = attachments.ToList();
         }
         
-        return post.ToDto();
+        return post.ToDto(post.Likes.Exists(x => x.UserId == userId));
     }
     
-    public async Task<IEnumerable<PostDto>> ListPostsAsync(ListOptions options)
+    public async Task<IEnumerable<PostDto>> ListPostsAsync(Guid userId, ListOptions options)
     {
         var posts = await _postDatabaseService.ListPostsAsync(options);
 
@@ -46,7 +46,7 @@ public class PostManager
             }
         }
         
-        return posts.Select(x => x.ToDto());
+        return posts.Select(x => x.ToDto(x.Likes.Exists(y => y.UserId == userId)));
     }
     
     public async Task<PostDto> PostNewPost(Guid userId, NewPostDto postDto)
@@ -63,5 +63,10 @@ public class PostManager
         
         post.User = user;
         return post.ToDto();
+    }
+    
+    public async Task<bool> ExistsAsync(Guid id)
+    {
+        return await _postDatabaseService.ExistsAsync(id);
     }
 }

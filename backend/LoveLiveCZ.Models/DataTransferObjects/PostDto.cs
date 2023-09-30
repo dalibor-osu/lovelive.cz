@@ -23,6 +23,16 @@ public class PostDto
     public BasicUserDto User { get; set; }
     
     /// <summary>
+    /// Gets or sets number of likes
+    /// </summary>
+    public int LikeCount { get; set; }
+    
+    /// <summary>
+    /// Gets or sets whether current user liked this post
+    /// </summary>
+    public bool Liked { get; set; }
+    
+    /// <summary>
     /// Gets or sets created date
     /// </summary>
     public DateTimeOffset Created { get; set; }

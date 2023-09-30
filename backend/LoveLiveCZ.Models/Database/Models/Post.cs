@@ -42,4 +42,15 @@ public class Post : IIdentifiable, IUserIdentifiable, IDeletable, ICreated, IUpd
     /// Gets or sets User author of a post
     /// </summary>
     public User User { get; set; }
+    
+    /// <summary>
+    /// Gets or sets number of likes
+    /// </summary>
+    [NotMapped]
+    public List<Like> Likes { get; set; }
+    
+    /// <summary>
+    /// Gets or sets number of likes
+    /// </summary>
+    public int LikeCount => Likes?.Count ?? 0;
 }

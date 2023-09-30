@@ -5,7 +5,7 @@ namespace LoveLiveCZ.Models.Convertors;
 
 public static class PostConvertor
 {
-    public static PostDto ToDto(this Post source)
+    public static PostDto ToDto(this Post source, bool liked = false)
     {
         return new PostDto
         {
@@ -13,6 +13,8 @@ public static class PostConvertor
             Text = source.Text,
             Attachments = source.Attachments?.Select(x => x.ToDto()).ToList() ?? new List<AttachmentDto>(),
             Created = source.Created,
+            LikeCount = source.LikeCount,
+            Liked = liked,
             Updated = source.Updated,
             User = source.User?.ToBasicDto()
         };
