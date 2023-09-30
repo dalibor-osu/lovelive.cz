@@ -2,12 +2,15 @@ import type { Post } from "@/interfaces/post/post";
 import { defineStore } from "pinia";
 import { mande } from "mande";
 import Cookies from "js-cookie";
+import type { LikeResult } from "@/interfaces/post/likeResult";
 
 const api = mande("/api/post");
+const interactionApi = mande("api/interaction");
 
 const setToken = (token: string) => {
 	Cookies.set("token", token);
 	api.options.headers.Authorization = "Bearer " + token;
+	interactionApi.options.headers.Authorization = "Bearer " + token;
 };
 
 const getToken = (): string | null => {
@@ -32,6 +35,7 @@ const usePostStore = defineStore("post", {
 	actions: {
 		async refreshPosts(): Promise<void> {
 			try {
+				refreshToken();
 				api.options.query = { limit: 10 };
 				const posts = await api.get<Array<Post>>("/list");
 				this.posts = posts;
@@ -48,6 +52,7 @@ const usePostStore = defineStore("post", {
 
 		async refreshPostsForUser(userId: string): Promise<void> {
 			try {
+				refreshToken();
 				api.options.query = { parentId: userId, limit: 10 };
 				const posts = await api.get<Array<Post>>("/list");
 				this.posts = posts;
@@ -73,7 +78,7 @@ const usePostStore = defineStore("post", {
 
 		async loadMorePosts(lastPost: Post | null): Promise<boolean> {
 			try {
-				console.log(lastPost);
+				refreshToken();
 				api.options.query = { limit: 10 };
 
 				if (lastPost?.created !== null) {
@@ -93,6 +98,26 @@ const usePostStore = defineStore("post", {
 			}
 
 			return false;
+		},
+
+		async like(postId: string): Promise<boolean | null> {
+			try {
+				refreshToken();
+				const response = await interactionApi.post<LikeResult>(`/like/${postId}`);
+				const postIdx = this.posts.findIndex((post) => post.id === response.postId);
+
+				if (postIdx === null) {
+					return null;
+				}
+
+				this.posts[postIdx].likeCount += response.liked ? 1 : -1;
+				this.posts[postIdx].liked = response.liked;
+				return response.liked;
+			}
+			catch (error) {
+				console.error(error);
+				return null;
+			}
 		},
 	},
 });
