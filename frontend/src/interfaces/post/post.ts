@@ -5,7 +5,9 @@ export interface Post {
     id: string,
     text: string,
     attachments: Array<Attachment>,
-    user: BasicUser
+    user: BasicUser,
+    likeCount: number,
+    liked: boolean,
     created: Date,
     updated: Date
 }
