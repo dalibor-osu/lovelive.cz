@@ -2,6 +2,7 @@
 import WelcomeParticle from '@/components/main/WelcomeParticle.vue';
 import WelcomeImgSrc from '../assets/img/all_sunshine.png';
 import Newsletter from '@/components/footer/Newsletter.vue';
+import { darkColor } from '../assets/helper';
 
 const welcomeImg = new Image();
 welcomeImg.src = WelcomeImgSrc;
@@ -10,15 +11,17 @@ welcomeImg.src = WelcomeImgSrc;
 <template>
   <main class="main flex flex-col justify-center items-center">
     <section
-      class="main__welcome relative overflow-hidden flex flex-col items-center justify-center w-full bg-gradient-to-t from-[#df067f] from-5% to-white to-90%">
+      :class="`main__welcome relative overflow-hidden flex flex-col items-center justify-center w-full bg-gradient-to-t from-[#df067f] from-10% to-white to-90% dark:to-[${darkColor}] dark:from-white`">
       <div class="main__container relative z-10 max-w-[1280px] flex flex-col items-center justify-center select-none">
         <div class="main__welcome-title flex flex-col items-center justify-end mt-7">
           <h1
-            class="main__welcome-item font-roboto text-5xl tablet:text-4xl mobile:text-3xl w-auto text-[#df067f] font-bold italic">
+            class="main__welcome-item font-roboto text-5xl tablet:text-4xl mobile:text-3xl w-auto text-[#df067f] font-bold italic dark:text-white">
             Welcome to</h1>
           <div class="main__logo w-full h-full flex justify-end">
             <img src="../assets/logo_p.svg" alt="LoveLive! Czechia!!"
-              class="h-[80px] tablet:h-[60px] mobile:h-[40px]">
+              class="h-[80px] tablet:h-[60px] mobile:h-[40px] dark:hidden">
+            <img src="../assets/logo_w.svg" alt="LoveLive! Czechia!!"
+              class="h-[80px] tablet:h-[60px] mobile:h-[40px] hidden dark:flex">
           </div>
         </div>
         <div class="">

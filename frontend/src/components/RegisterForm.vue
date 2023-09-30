@@ -4,6 +4,7 @@ import { useUserStore } from "@/stores/userStore";
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
 import { validateForm } from "@/utilities/formValidator";
+import { darkColor } from "../assets/helper";
 
 const username = ref("");
 const displayName = ref("");
@@ -30,11 +31,11 @@ const register = (): void => {
 
 <template>
 	<div
-		class="register__card flex items-center justify-center rounded-xl bg-gradient-to-br from-[#ffb7df] from-10% via-[#eb3298] via-70% to-[#e0007c] w-[375px] py-16 my-28">
+		class="register__card flex items-center justify-center rounded-xl bg-gradient-to-br from-[#ffb7df] from-10% via-[#eb3298] via-70% to-[#e0007c] w-[375px] py-16 my-28 dark:bg-none dark:ring-2 dark:ring-white">
 		<form class="register__form flex flex-col gap-5">
 			<label class="register__email relative">
 				<input v-model="email" type="email" placeholder="Email"
-					class="register__email-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+					:class="`register__email-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 					stroke="currentColor" class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
 					<path stroke-linecap="round" stroke-linejoin="round"
@@ -43,7 +44,7 @@ const register = (): void => {
 			</label>
 			<label class="register__username relative">
 				<input v-model="username" type="text" placeholder="Username"
-					class="register__username-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+					:class="`register__username-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 					stroke="currentColor" class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
 					<path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +53,7 @@ const register = (): void => {
 			</label>
 			<label class="register__displayname relative">
 				<input v-model="displayName" type="text" placeholder="Display Name"
-					class="register__displayname-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+					:class="`register__displayname-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 					stroke="currentColor" class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
 					<path stroke-linecap="round" stroke-linejoin="round"
@@ -61,7 +62,7 @@ const register = (): void => {
 			</label>
 			<label class="register__password relative">
 				<input v-model="password" type="password" placeholder="Password"
-					class="register__password-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+					:class="`register__password-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 					stroke="currentColor" class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
 					<path stroke-linecap="round" stroke-linejoin="round"
@@ -77,7 +78,7 @@ const register = (): void => {
 				</div>
 			</label>
 			<button type="button" @click="register"
-				class="w-24 h-10 rounded-xl bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% text-sm font-semibold text-white shadow-xl">
+				:class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`">
 				Sign up
 			</button>
 			<div class="text-white mt-5 flex gap-1">

@@ -3,6 +3,7 @@ import type { Login } from "@/interfaces/user/login";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
 import { ref } from "vue";
+import { darkColor } from "../assets/helper";
 
 const username = ref("");
 const password = ref("");
@@ -20,11 +21,11 @@ const login = () => {
 
 <template>
   <div
-    class="login__card flex items-center justify-center rounded-xl bg-gradient-to-br from-[#ffb7df] from-10% via-[#eb3298] via-70% to-[#e0007c] w-[375px] py-16 my-28">
+    :class="`login__card flex items-center justify-center rounded-xl bg-gradient-to-br from-[#ffb7df] from-10% via-[#eb3298] via-70% to-[#e0007c] w-[375px] py-16 my-28 dark:bg-none dark:ring-2 dark:ring-white`">
     <form class="login__form flex flex-col gap-5">
       <label class="login__username relative">
         <input v-model="username" type="text" placeholder="Username"
-          class="login__username-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+          :class="`login__username-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +34,7 @@ const login = () => {
       </label>
       <label class="login__password relative">
         <input v-model="password" type="password" placeholder="Password"
-          class="login__password-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10">
+          :class="`login__password-input rounded-xl placeholder-white placeholder:text-[15px] text-white focus:outline-none bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% shadow-xl w-full max-w-[300px] pl-2 pr-10 h-10 dark:bg-none dark:bg-[${darkColor}] dark:ring-1 dark:ring-white`">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-6 h-6 absolute top-1/2 -translate-y-1/2 right-3 text-white">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -47,7 +48,7 @@ const login = () => {
       </label>
       <div class="login__button flex justify-between items-center">
         <button type="button" @click="login"
-          class="w-24 h-10 rounded-xl bg-gradient-to-br from-[#f53aa1] from-10% via-[#b30765] via-70% to-[#960052] to-90% mobile:from-[#960052] mobile:to-[#f53aa1] text-sm font-semibold text-white shadow-xl">
+          :class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#f53aa1] from-10% via-[#b30765] via-70% to-[#960052] to-90% mobile:from-[#960052] mobile:to-[#f53aa1] text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[${darkColor}]`">
           Log in
         </button>
         <a href="#" class="text-white text-sm underline h-10 flex items-center">Forgot password?</a>
