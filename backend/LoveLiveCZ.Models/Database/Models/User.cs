@@ -16,11 +16,13 @@ public class User : IIdentifiable, IDisplayNameable, IUsernameable, IEmail, IDel
     /// <inheritdoc cref="IDisplayNameable"/>
     [Column(IDisplayNameable.ColumnName)]
     [Required]
+    [MaxLength(32)]
     public string DisplayName { get; set; }
 
     /// <inheritdoc cref="IUsernameable"/>
     [Column(IUsernameable.ColumnName)]
     [Required]
+    [MaxLength(16)]
     public string Username { get; set; }
     
     /// <summary>
@@ -35,10 +37,18 @@ public class User : IIdentifiable, IDisplayNameable, IUsernameable, IEmail, IDel
     /// </summary>
     [Column(UsersTable.ProfilePicture)]
     public string ProfilePicture { get; set; }
+    
+    /// <summary>
+    /// Gets or sets user bio
+    /// </summary>
+    [Column(UsersTable.Bio)]
+    [MaxLength(200)]
+    public string Bio { get; set; }
 
     /// <inheritdoc cref="IEmail"/>
     [Column(IEmail.ColumnName)]
     [Required]
+    [MaxLength(320)]
     public string Email { get; set; }
 
     /// <inheritdoc cref="IDeletable"/>

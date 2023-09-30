@@ -17,6 +17,7 @@ public class Post : IIdentifiable, IUserIdentifiable, IDeletable, ICreated, IUpd
     /// Gets or sets text values
     /// </summary>
     [Column(PostsTable.Text)]
+    [MaxLength(5000)]
     public string Text { get; set; }
 
     public List<Attachment> Attachments { get; set; }

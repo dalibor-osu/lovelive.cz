@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LoveLiveCZ.Migrations
 {
-    [DbContext(typeof(LoveLiveCZDatabaseContext))]
+    [DbContext(typeof(LoveLiveCzDatabaseContext))]
     [Migration("20230903161524_EditUsersTable")]
     partial class EditUsersTable
     {
