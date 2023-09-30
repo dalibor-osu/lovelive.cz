@@ -12,6 +12,7 @@ using LoveLiveCZ.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Npgsql;
 
 namespace LoveLiveCZ;
@@ -35,7 +36,32 @@ public static class ServiceConfigurator
             .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(option =>
+            {
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(x =>
@@ -86,6 +112,7 @@ public static class ServiceConfigurator
         builder.Services.AddScoped<IPostDatabaseService, PostDatabaseService>();
         builder.Services.AddScoped<IUserDatabaseService, UserDatabaseService>();
         builder.Services.AddScoped<IAttachmentDatabaseService, AttachmentDatabaseService>();
+        builder.Services.AddScoped<ILikeDatabaseService, LikeDatabaseService>();
     }
 
     private static void ConfigureManagers(this WebApplicationBuilder builder)
@@ -93,6 +120,7 @@ public static class ServiceConfigurator
         builder.Services.AddScoped<PostManager>();
         builder.Services.AddScoped<UserManager>();
         builder.Services.AddScoped<AttachmentManager>();
+        builder.Services.AddScoped<LikeManager>();
     }
 
     private static void ConfigureLocalServices(this WebApplicationBuilder builder)

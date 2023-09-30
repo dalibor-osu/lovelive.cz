@@ -8,4 +8,5 @@ public interface IPostDatabaseService
     public Task<Post> GetPost(Guid userId, Guid postId);
     public Task<IReadOnlyCollection<Post>> ListPostsAsync(ListOptions options);
     public Task<Post> CreatePostAsync(Post post);
+    public Task<bool> ExistsAsync(Guid postId);
 }

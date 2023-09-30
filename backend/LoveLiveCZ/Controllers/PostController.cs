@@ -56,7 +56,8 @@ namespace LoveLiveCZ.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<PostDto>>> ListPosts([FromQuery] ListOptions listOptions = null)
         {
-            var result = await _postManager.ListPostsAsync(listOptions);
+            var userId = User.TryGetUserId();
+            var result = await _postManager.ListPostsAsync(userId, listOptions);
             return Ok(result.ToList());
         }
 
