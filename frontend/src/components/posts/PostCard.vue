@@ -31,7 +31,7 @@
         <span class="post__count-likes text-lg"></span>
       </div>
       <div class="post__other flex gap-5">
-        <button class="post__share-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1">
+        <button class="post__share-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1 hidden">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -39,7 +39,7 @@
           </svg>
           <span class='tooltip rounded shadow-lg p-1 bg-white text-[#df067f] -mt-[65px] -ml-[24px]'>Share</span>
         </button>
-        <button class="post__reply-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1">
+        <button class="post__reply-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1 hidden">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -47,7 +47,7 @@
           </svg>
           <span class='tooltip rounded shadow-lg p-1 bg-white text-[#df067f] -mt-[65px] -ml-[24px]'>Reply</span>
         </button>
-        <button class="post__share-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1">
+        <button class="post__share-btn has-tooltip hover:text-[#df067f] hover:bg-white rounded-2xl p-1 hidden">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"

@@ -12,8 +12,6 @@ import { RouterLink } from "vue-router";
                         <RouterLink to="/" type="button">
                             Home
                         </RouterLink>
-                        <a>Nesa</a>
-                        <a>XD</a>
                     </div>
                 </div>
                 <div class="footer__social flex flex-col gap-2">
