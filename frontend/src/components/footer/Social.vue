@@ -15,7 +15,7 @@ import { RouterLink } from "vue-router";
                     </div>
                 </div>
                 <div class="footer__social flex flex-col gap-2">
-                    <h1 class="text-[20px] mobile:text-[17px]">Můžete nás najít zde:</h1>
+                    <h1 class="text-[20px] mobile:text-[17px]">You can find us here:</h1>
                     <div class="footer__social-icons flex gap-4">
                         <a href="https://discord.gg/drpqQfVXQ" class="footer__icon h-8 w-8">
                             <svg class="w-8 h-8" fill="currentColor" viewBox="0 -20 1035 1035"
