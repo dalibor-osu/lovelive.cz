@@ -18,7 +18,7 @@ public class ImageFileVerifier : FileVerifier
     public override bool Verify(IFormFile file)
     {
         using var ms = new MemoryStream();
-        file.CopyToAsync(ms);
+        file.CopyTo(ms);
         return Types.Any(fileType => fileType.Verify(ms));
     }
 }
