@@ -1,6 +1,7 @@
 using LoveLiveCZ.Files;
 using LoveLiveCZ.Manager;
 using LoveLiveCZ.Models.DataTransferObjects;
+using LoveLiveCZ.Utilities.Enums;
 using LoveLiveCZ.Utilities.Extensions;
 using LoveLiveCZ.Utilities.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -69,7 +70,7 @@ namespace LoveLiveCZ.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<PostDto>> PostNewPost([FromForm] NewPostDto postDto)
+        public async Task<ActionResult<PostDto>> PostAsync([FromForm] NewPostDto postDto)
         {
             var userId = User.GetUserId();
 
@@ -79,6 +80,49 @@ namespace LoveLiveCZ.Controllers
             }
 
             var result = await _postManager.PostNewPost(userId, postDto);
+            return Ok(result);
+        }
+        
+        /// <summary>
+        /// Asynchronously deletes a post by its ID
+        /// </summary>
+        /// <param name="postId">ID of a post to delete</param>
+        /// <returns>Empty body</returns>
+        [HttpDelete("{postId:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<PostDto>> DeleteAsync([FromRoute] Guid postId)
+        {
+            var exists = await _postManager.ExistsAsync(postId);
+
+            if (!exists)
+            {
+                return NotFound();
+            }
+            
+            var userId = User.GetUserId();
+            bool canDelete = User.IsRole(UserRoleType.Moderator);
+
+            if (!canDelete)
+            {
+                canDelete = await _postManager.CheckOwnership(userId, postId);
+            }
+
+            if (!canDelete)
+            {
+                return Forbid();
+            }
+
+            var result = await _postManager.DeleteAsync(postId);
+
+            if (result == Guid.Empty)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+            
             return Ok(result);
         }
     }

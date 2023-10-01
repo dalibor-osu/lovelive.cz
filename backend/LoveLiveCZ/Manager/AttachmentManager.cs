@@ -1,5 +1,6 @@
 using LoveLiveCZ.DatabaseServices.Interfaces;
 using LoveLiveCZ.Models.Database.Models;
+using LoveLiveCZ.Utilities.Constants;
 using LoveLiveCZ.Utilities.Enums;
 
 namespace LoveLiveCZ.Manager;
@@ -21,7 +22,7 @@ public class AttachmentManager
         {
             var saveResult = await SaveFileAsync(file, userId, Guid.NewGuid());
             saveResult.PostId = postId;
-            var result = await _attachmentDatabaseService.AddAttachmentAsync(saveResult);
+            var result = await _attachmentDatabaseService.AddAsync(saveResult);
             attachments.Add(result);
         }
 
@@ -32,11 +33,43 @@ public class AttachmentManager
     {
         return await _attachmentDatabaseService.GetPostAttachmentsAsync(postId);
     }
+    
+    public async Task<int> DeleteAttachmentsForPostAsync(Guid postId)
+    {
+        var attachments = await _attachmentDatabaseService.GetPostAttachmentsAsync(postId);
+
+        if (!attachments.Any())
+        {
+            return 0;
+        }
+
+        foreach (var attachment in attachments)
+        {
+            // TODO: Log failed deletions
+            DeleteFileAsync(attachment);
+            await _attachmentDatabaseService.DeleteAsync(attachment.Id);
+        }
+
+        return attachments.Count;
+    }
+
+    public bool DeleteAttachmentsForUser(Guid userId)
+    {
+        var path = Path.Combine(AttachmentConstants.FilesDirectoryPath, userId.ToString());
+
+        if (!Directory.Exists(path))
+        {
+            return false;
+        }
+        
+        Directory.Delete(path, true);
+        return true;
+
+    }
 
     private async Task<Attachment> SaveFileAsync(IFormFile file, Guid userId, Guid attachmentId)
     {
-        const string filesDirectoryPath = "/files";
-        var userDirectory = Path.Combine(filesDirectoryPath, userId.ToString());
+        var userDirectory = Path.Combine(AttachmentConstants.FilesDirectoryPath, userId.ToString());
             
         if (!Directory.Exists(userDirectory))
         {
@@ -54,5 +87,23 @@ public class AttachmentManager
             UserId = userId,
             Type = AttachmentType.Image
         };
+    }
+    
+    private bool DeleteFileAsync(Attachment attachment)
+    {
+        var filePath = GetAttachmentPath(attachment);
+
+        if (!File.Exists(filePath))
+        {
+            return false;
+        }
+        
+        File.Delete(filePath);
+        return true;
+    }
+
+    private string GetAttachmentPath(Attachment attachment)
+    {
+        return Path.Combine(AttachmentConstants.FilesDirectoryPath, attachment.UserId.ToString(), $"{attachment.Id}_{attachment.Name}");
     }
 }

@@ -14,4 +14,6 @@ public interface IUserDatabaseService
     public Task<bool> UsernameOrEmailExistsAsync(string username, string email);
 
     public Task<User> UpdateAsync(User user);
+    public Task<Guid> DeleteAsync(Guid userId);
+    public Task<bool> ExistsAsync(Guid userId);
 }

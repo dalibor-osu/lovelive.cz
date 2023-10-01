@@ -82,11 +82,11 @@ public static class ServiceConfigurator
 
         builder.Services.AddAuthorization(options =>
         {
-            options.AddPolicy("Developers", policy =>
+            options.AddPolicy("Developer", policy =>
                 policy.RequireClaim(ClaimTypes.Role, 
                     UserRoleType.Developer.ToString()));
 
-            options.AddPolicy("Moderators", policy =>
+            options.AddPolicy("Moderator", policy =>
                 policy.RequireClaim(ClaimTypes.Role,
                     UserRoleType.Developer.ToString(),
                     UserRoleType.Moderator.ToString()));
