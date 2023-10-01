@@ -133,6 +133,32 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
         return result;
     }
 
+    public Task<Guid> DeleteAsync(Guid userId)
+    {
+        const string query = $@"
+            DELETE FROM love_live_cz.""{UsersTable.TableName}""
+                WHERE ""{IIdentifiable.ColumnName}"" = @userId
+            RETURNING ""{IIdentifiable.ColumnName}"";
+        ";
+        
+        var connection = ConnectionFactory();
+        return connection.QuerySingleAsync<Guid>(query, new { userId });
+    }
+
+    public Task<bool> ExistsAsync(Guid userId)
+    {
+        const string query = $@"
+            SELECT EXISTS (
+                SELECT 1
+                    FROM love_live_cz.""{UsersTable.TableName}""
+                        WHERE ""{IIdentifiable.ColumnName}"" = @userId
+            );
+        ";
+        
+        var connection = ConnectionFactory();
+        return connection.QuerySingleAsync<bool>(query, new { userId });
+    }
+
     public async Task<string> GetPasswordHashByUsernameAsync(string username)
     {
         const string query = $@"

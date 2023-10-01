@@ -16,5 +16,12 @@ public interface IAttachmentDatabaseService
     /// </summary>
     /// <param name="attachment">Attachment to add</param>
     /// <returns>Added <see cref="Attachment"/></returns>
-    public Task<Attachment> AddAttachmentAsync(Attachment attachment);
+    public Task<Attachment> AddAsync(Attachment attachment);
+
+    /// <summary>
+    /// Asynchronously deletes an attachment
+    /// </summary>
+    /// <param name="id">ID of an attachment to delete</param>
+    /// <returns>True if attachment was successfully delete, false if not</returns>
+    public Task<bool> DeleteAsync(Guid id);
 }

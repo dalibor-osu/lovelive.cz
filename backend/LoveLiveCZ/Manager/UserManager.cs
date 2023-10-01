@@ -15,11 +15,16 @@ public class UserManager
 {
     private readonly IConfiguration _configuration;
     private readonly IUserDatabaseService _userDatabaseService;
+    private readonly AttachmentManager _attachmentManager;
     
-    public UserManager(IConfiguration configuration, IUserDatabaseService userDatabaseService)
+    public UserManager(
+        IConfiguration configuration,
+        IUserDatabaseService userDatabaseService,
+        AttachmentManager attachmentManager)
     {
         _configuration = configuration;
         _userDatabaseService = userDatabaseService;
+        _attachmentManager = attachmentManager;
     }
     
     public async Task<FullUserDto> GetFullAsync(Guid userId)
@@ -98,6 +103,18 @@ public class UserManager
 
         var result = await _userDatabaseService.UpdateAsync(user);
         return result.ToFullDto();
+    }
+    
+    public async Task<Guid> BanAsync(Guid userId)
+    {
+        // TODO: Log the ban
+        Task.Run(() => _attachmentManager.DeleteAttachmentsForUser(userId));
+        return await _userDatabaseService.DeleteAsync(userId);
+    }
+
+    public async Task<bool> ExistsAsync(Guid userId)
+    {
+        return await _userDatabaseService.ExistsAsync(userId);
     }
 
     private string GenerateJwt(User user)

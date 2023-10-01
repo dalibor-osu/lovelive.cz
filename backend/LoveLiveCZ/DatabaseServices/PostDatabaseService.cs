@@ -19,7 +19,7 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
     {
     }
     
-    public async Task<Post> GetPost(Guid userId, Guid postId)
+    public async Task<Post> GetPost(Guid postId)
     {
         const string query = @$"
             SELECT * FROM love_live_cz.""{PostsTable.TableName}""
@@ -27,8 +27,7 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
         ";
         
         var connection = ConnectionFactory();
-        var result = await connection.QuerySingleOrDefaultAsync<Post>(query, new { postId });
-        return result;
+        return await connection.QuerySingleOrDefaultAsync<Post>(query, new { postId });
     }
 
     public async Task<IReadOnlyCollection<Post>> ListPostsAsync(ListOptions options)
@@ -134,8 +133,7 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
         post.Created = post.Updated = DateTimeOffset.UtcNow;
         
         var connection = ConnectionFactory();
-        var result = await connection.QuerySingleAsync<Post>(query, post);
-        return result;
+        return await connection.QuerySingleAsync<Post>(query, post);
     }
 
     public async Task<bool> ExistsAsync(Guid postId)
@@ -147,7 +145,18 @@ public class PostDatabaseService : DatabaseServiceBase, IPostDatabaseService
         );";
         
         var connection = ConnectionFactory();
-        var result = await connection.QuerySingleAsync<bool>(query, new { postId });
-        return result;
+        return await connection.QuerySingleAsync<bool>(query, new { postId });
+    }
+
+    public Task<Guid> DeleteAsync(Guid postId)
+    {
+        const string query = $@"
+            DELETE FROM love_live_cz.""{PostsTable.TableName}""
+                WHERE ""{IIdentifiable.ColumnName}"" = @postId
+            RETURNING ""{IIdentifiable.ColumnName}"";
+        ";
+        
+        var connection = ConnectionFactory();
+        return connection.QuerySingleOrDefaultAsync<Guid>(query, new { postId });
     }
 }

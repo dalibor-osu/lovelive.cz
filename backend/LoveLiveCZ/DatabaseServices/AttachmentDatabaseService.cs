@@ -28,7 +28,7 @@ public class AttachmentDatabaseService : DatabaseServiceBase, IAttachmentDatabas
     }
 
     /// <inheritdoc />
-    public async Task<Attachment> AddAttachmentAsync(Attachment attachment)
+    public async Task<Attachment> AddAsync(Attachment attachment)
     {
         attachment.Created = DateTimeOffset.UtcNow;
         
@@ -52,5 +52,16 @@ public class AttachmentDatabaseService : DatabaseServiceBase, IAttachmentDatabas
         var connection = ConnectionFactory();
         var result = await connection.QuerySingleAsync<Attachment>(query, attachment);
         return result;
+    }
+
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        const string query = @$"
+            DELETE FROM love_live_cz.""{TableName}""
+                WHERE ""{IIdentifiable.ColumnName}"" = @id;
+        ";
+        
+        var connection = ConnectionFactory();
+        return await connection.ExecuteAsync(query, new { id }) > 0;
     }
 }

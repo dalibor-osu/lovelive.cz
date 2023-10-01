@@ -116,5 +116,24 @@ namespace LoveLiveCZ.Controllers
             var result = await _userManager.UpdateAsync(userId, userDto);
             return Ok(result);
         }
+        
+        [HttpDelete("ban/{userId:guid}")]
+        [Authorize(Policy = "Moderator")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> BanAsync([FromRoute] Guid userId)
+        {
+            var exists = await _userManager.ExistsAsync(userId);
+
+            if (!exists)
+            {
+                return NotFound();
+            }
+            
+            var result = await _userManager.BanAsync(userId);
+            return result == Guid.Empty ? NotFound() : Ok();
+        }
     }
 }

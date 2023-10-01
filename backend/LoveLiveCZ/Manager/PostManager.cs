@@ -21,7 +21,7 @@ public class PostManager
     
     public async Task<PostDto> GetPost(Guid userId, Guid postId)
     {
-        var post = await _postDatabaseService.GetPost(userId, postId);
+        var post = await _postDatabaseService.GetPost(postId);
         var attachments = await _attachmentManager.GetPostAttachmentsAsync(postId);
         
         if (attachments.Any())
@@ -65,8 +65,20 @@ public class PostManager
         return post.ToDto();
     }
     
-    public async Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid postId)
     {
-        return await _postDatabaseService.ExistsAsync(id);
+        return await _postDatabaseService.ExistsAsync(postId);
+    }
+
+    public async Task<Guid> DeleteAsync(Guid postId)
+    {
+        await _attachmentManager.DeleteAttachmentsForPostAsync(postId);
+        return await _postDatabaseService.DeleteAsync(postId);
+    }
+
+    public async Task<bool> CheckOwnership(Guid userId, Guid postId)
+    {
+        var post = await _postDatabaseService.GetPost(postId);
+        return post.UserId == userId;
     }
 }
