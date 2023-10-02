@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import constHelper from "../../assets/helper";
-
 </script>
 
 <template>
-    <section id="footer-social" :class="`w-full h-auto bg-[#df067f] py-12 text-white dark:bg-[${constHelper.darkPinkColor}]`">
+    <section id="footer-social" :class="`w-full h-auto bg-[#df067f] py-12 text-white dark:bg-[#a7005c]`">
         <div
             class="footer__container max-w-[1280px] tablet:max-w-[720px] mobile:max-w-[320px] mx-auto flex justify-between">
             <div class="footer__items flex gap-48 mobile:flex-col mobile:gap-5 mobile:flex-1">

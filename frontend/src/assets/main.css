@@ -8,7 +8,7 @@
   background: linear-gradient(to left, transparent 0%, #df067f 40%, #df067f 60%, transparent 100%);
   background-size: 200% 100%;
   animation: shine 15s linear infinite;
-  animation-delay: 0.162451784s;
+  animation-delay: 0.294294522s;
 }
 
 .header__animation_w {
@@ -21,7 +21,7 @@
   background: linear-gradient(to left, transparent 0%, #ffffff 40%, #ffffff 60%, transparent 100%);
   background-size: 200% 100%;
   animation: shine 15s linear infinite;
-  animation-delay: 0.2444170296s;
+  animation-delay: 0.3971285364s;
 }
 
 .space {
@@ -50,7 +50,7 @@
 .register__password-input:-webkit-autofill,
 .login__username-input:-webkit-autofill,
 .login__password-input:-webkit-autofill {
-  -webkit-text-fill-color: #df067f;
+  -webkit-text-fill-color: black;
   -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 
