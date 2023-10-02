@@ -48,7 +48,7 @@ const login = () => {
       </label>
       <div class="login__button flex justify-between items-center">
         <button type="button" @click="login"
-          :class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#f53aa1] from-10% via-[#b30765] via-70% to-[#960052] to-90% mobile:from-[#960052] mobile:to-[#f53aa1] text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${constHelper.darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[${constHelper.darkColor}]`">
+          :class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#f53aa1] from-10% via-[#b30765] via-70% to-[#960052] to-90% mobile:from-[#960052] mobile:to-[#f53aa1] text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${constHelper.darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[#282b30] dark:hover:font-bold`">
           Log in
         </button>
         <a href="#" class="text-white text-sm underline h-10 flex items-center">Forgot password?</a>

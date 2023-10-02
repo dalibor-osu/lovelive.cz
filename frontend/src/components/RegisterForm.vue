@@ -78,7 +78,7 @@ const register = (): void => {
 				</div>
 			</label>
 			<button type="button" @click="register"
-				:class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${constHelper.darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[${constHelper.darkColor}]`">
+				:class="`w-24 h-10 rounded-xl bg-gradient-to-br from-[#960052] from-10% via-[#b30765] via-30% to-[#f53aa1] to-90% text-sm font-semibold text-white shadow-xl dark:bg-none dark:bg-[${constHelper.darkColor}] dark:ring-2 dark:ring-white dark:text-white dark:hover:bg-white dark:hover:text-[#282b30] dark:hover:font-bold`">
 				Sign up
 			</button>
 			<div class="text-white mt-5 flex gap-1">

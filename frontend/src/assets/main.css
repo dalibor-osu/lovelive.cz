@@ -8,7 +8,7 @@
   background: linear-gradient(to left, transparent 0%, #df067f 40%, #df067f 60%, transparent 100%);
   background-size: 200% 100%;
   animation: shine 15s linear infinite;
-  animation-delay: 0.294294522s;
+  animation-delay: 0.2330312942s;
 }
 
 .header__animation_w {
@@ -21,7 +21,7 @@
   background: linear-gradient(to left, transparent 0%, #ffffff 40%, #ffffff 60%, transparent 100%);
   background-size: 200% 100%;
   animation: shine 15s linear infinite;
-  animation-delay: 0.3971285364s;
+  animation-delay: 0.060782173s;
 }
 
 .space {
@@ -59,7 +59,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 0;
 }
 
 /* Track */
