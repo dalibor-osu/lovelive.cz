@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
-import constHelper from "../../assets/helper";
 
 const userStore = useUserStore();
 </script>
 
 <template>
   <nav
-    :class="`sidenav fixed top-[82px] z-30 right-0 flex text-white bg-[#df067f] dark:bg-[${constHelper.darkPinkColor}] w-0 h-full transition-[width] duration-500`">
+    :class="`sidenav fixed top-[82px] z-30 right-0 flex text-white bg-[#df067f] dark:bg-[#a7005c] w-0 h-full transition-[width] duration-500`">
     <div class="sidenav__box container p-2">
       <button class="sidenav__close flex justify-end w-[222px]">
         <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40">
