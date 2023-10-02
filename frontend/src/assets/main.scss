@@ -44,7 +44,6 @@
   }
 }
 
-
 //.login__password-input:-webkit-autofill:focus
 .register__email-input:-webkit-autofill,
 .register__username-input:-webkit-autofill,
@@ -60,9 +59,8 @@
   pointer-events: none;
 }
 
-
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 0;
 }
 
 /* Track */

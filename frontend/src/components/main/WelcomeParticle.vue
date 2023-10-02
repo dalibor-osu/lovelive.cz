@@ -48,8 +48,8 @@ const particlesLoaded = async (container: any) => {
                     //     quantity: 4
                     // },
                     repulse: {
-                        distance: 200,
-                        duration: 0.4
+                        distance: 300,
+                        duration: 0.6
                     }
                 }
             },
