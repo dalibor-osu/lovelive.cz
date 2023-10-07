@@ -7,15 +7,16 @@ const particlesInit = async (engine: any) => {
     //await loadSlim(engine);
 };
 
-const particlesLoaded = async (container: any) => {
-    console.log("Particles container loaded", container);
-};
+// const particlesLoaded = async (container: any) => {
+//     console.log("Particles container loaded", container);
+// };
 </script>
 
 
 <template>
     <div>
-        <vue-particles id="tsparticles" :particlesInit="particlesInit" :particlesLoaded="particlesLoaded" :options="{
+        <!-- :particlesLoaded="particlesLoaded" -->
+        <vue-particles id="tsparticles" :particlesInit="particlesInit" :options="{
             backgroundMode: false,
             background: {
                 color: {
