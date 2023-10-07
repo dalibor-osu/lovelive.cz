@@ -7,7 +7,7 @@ const userStore = useUserStore();
 
 <template>
   <nav
-    :class="`sidenav fixed top-[82px] z-30 right-0 flex text-white bg-[#df067f] dark:bg-[#a7005c] w-0 h-full transition-[width] duration-500`">
+    :class="`sidenav fixed top-[82px] z-30 right-0 flex text-white bg-[#ab8b71] dark:bg-[#ab8b71] w-0 h-full transition-[width] duration-500`">
     <div class="sidenav__box container p-2">
       <button class="sidenav__close flex justify-end w-[222px]">
         <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 -960 960 960" width="40">
@@ -17,24 +17,24 @@ const userStore = useUserStore();
       </button>
 
       <div class="sidenav__link flex flex-col flex-wrap gap-2">
-        <RouterLink to="/" type="button" class="sidenav__link-item w-[222px] py-2 transition-colors text-[#df067f]"
+        <RouterLink to="/" type="button" class="sidenav__link-item w-[222px] py-2"
           data-link-id="home" active-class="font-bold underline">
           <span>Home</span>
         </RouterLink>
-        <RouterLink to="/about" type="button" class="sidenav__link-item w-[222px] py-2 transition-colors text-[#df067f]"
+        <RouterLink to="/about" type="button" class="sidenav__link-item w-[222px] py-2"
           data-link-id="about" active-class="font-bold underline">
           <span>About</span>
         </RouterLink>
-        <RouterLink to="/posts" type="button" class="sidenav__link-item w-[222px] py-2 transition-colors text-[#df067f]"
+        <RouterLink to="/posts" type="button" class="sidenav__link-item w-[222px] py-2"
           data-link-id="posts" active-class="font-bold underline">
           <span>Post</span>
         </RouterLink>
         <div v-if="!userStore.isLoggedIn" class="flex flex-col gap-2">
-          <RouterLink to="/login" type="button" class="sidenav__link-item w-[222px] py-2 transition-colors text-[#df067f]"
+          <RouterLink to="/login" type="button" class="sidenav__link-item w-[222px] py-2"
             data-link-id="login" active-class="font-bold underline">
             <span>Log in</span>
           </RouterLink>
-          <RouterLink to="/register" type="button" class="sidenav__link-item w-[222px] py-2 transition-colors text-[#df067f]"
+          <RouterLink to="/register" type="button" class="sidenav__link-item w-[222px] py-2"
             data-link-id="register" active-class="font-bold underline">
             <span>Sign up</span>
           </RouterLink>

@@ -7,7 +7,7 @@ const toggleDark = useToggle(isDark);
 </script>
 
 <template>
-    <button @click="toggleDark()" :class="`w-14 h-14 mobile:w-10 mobile:h-10 flex justify-center items-center rounded-full fixed bottom-4 right-4 ring-1 ring-white group text-white bg-[#df067f] dark:bg-[${constHelper.darkColor}] dark:text-white dark:ring-white`">
+    <button @click="toggleDark()" :class="`w-14 h-14 mobile:w-10 mobile:h-10 flex justify-center items-center rounded-full fixed bottom-4 right-4 ring-1 ring-white group text-white bg-[#343031] dark:bg-[#343031] dark:text-white dark:ring-white`">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-8 h-8 group-hover:animate-pulse">
             <path stroke-linecap="round" stroke-linejoin="round"

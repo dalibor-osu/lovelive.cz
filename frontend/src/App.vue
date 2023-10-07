@@ -3,6 +3,7 @@ import { RouterView } from "vue-router";
 import Header from "./components/header/Header.vue";
 import Footer from "./components/footer/Footer.vue";
 import Sidenav from "./components/header/Sidenav.vue";
+import ArrowDown from "./components/darkmode/ArrowDown.vue"
 import { useUserStore } from "./stores/userStore";
 import constHelper from "./assets/helper";
 
@@ -17,11 +18,12 @@ userStore.getCurrentUser();
 </script>
 
 <template>
-  <div :class="`min-h-screen flex flex-col justify-between dark:bg-[${constHelper.darkColor}]`">
+  <div :class="`min-h-screen flex flex-col justify-between dark:bg-[#343031]`">
     <Header />
     <div class="space" />
     <Sidenav />
     <RouterView />
     <Footer />
+    <ArrowDown />
   </div>
 </template>./components/header/Header.vue
