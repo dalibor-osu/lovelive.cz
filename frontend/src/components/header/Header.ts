@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	const dropdownLinks: NodeListOf<HTMLLinkElement> | null = document.querySelectorAll("a.header__link-dropdown-item");
 
 	let widthContainer: number;
-
 	function hideLinks() {
 		dropdown?.classList.add("hidden");
 		widthContainer = linkContainer!.offsetWidth;
@@ -37,23 +36,20 @@ document.addEventListener("DOMContentLoaded", () => {
 			sumWidthLinks += links![i].offsetWidth;
 			// podminka pokud je soucet vetsi nez kontejner,
 			// budou se posledni tlacitka schovavat
-			if (sumWidthLinks + 613 >= widthContainer) {
+			if (sumWidthLinks + 641 >= widthContainer) {
 				links![i].classList.add("hidden");
-				dropdown?.classList.remove("hidden");
 				dropdownLinks![i].classList.remove("hidden");
+				dropdown?.classList.remove("hidden");
 			}
 		}
 	}
 
-	hideLinks();
-
-	document.addEventListener("reload", () => {
+	window.onload = function () {
 		hideLinks();
-	})
+	  };
 
 	window.addEventListener("resize", () => {
 		hideLinks();
-		dropdownContent?.classList.add("hidden");
 	});
 
 	dropdownLinks?.forEach((link) => {
