@@ -2,17 +2,19 @@
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
 import constHelper from "../../assets/helper";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { vOnClickOutside } from '@vueuse/components';
 
 const userStore = useUserStore();
-const menu: HTMLDivElement | null = document.querySelector("div.menu");
-document.addEventListener('DOMContentLoaded', () => {
-    if (userStore.isLoggedIn) {
-        menu?.classList.remove("hidden", "mobile:flex");
-        menu?.classList.add("flex", "mobile:hidden");
+const userId = ref<string | null>(null);
+
+watch(() => userStore.user, (newValue) => {
+    if (newValue) {
+        userId.value = newValue.id;
     }
 });
+
+userStore.getCurrentUser();
 
 const isVisiblePfDropdown = ref(false);
 
@@ -24,9 +26,7 @@ onMounted(() => {
     const handleResize = () => {
         isVisiblePfDropdown.value = false;
     };
-
     window.addEventListener('resize', handleResize);
-
     // Zrušíme posluchač události resize při zničení komponenty (unmount)
     onUnmounted(() => {
         window.removeEventListener('resize', handleResize);
@@ -35,6 +35,10 @@ onMounted(() => {
 
 function closeDropdown() {
     isVisiblePfDropdown.value = false
+}
+
+function reloadPage() {
+    location.reload();
 }
 </script>
 
@@ -127,7 +131,7 @@ function closeDropdown() {
                         <p class="text-[#df067f] font-extrabold px-1 py-2 dark:text-white text-center">{{
                             userStore.user?.displayName }}</p>
                         <hr>
-                        <RouterLink to="/user/:userId" type="button" @click="closeDropdown"
+                        <RouterLink :to="`/user/${userId}`" type="button" @click="closeDropdown"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"
                             data-link-id="userPage">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -150,7 +154,7 @@ function closeDropdown() {
                         <hr>
                         <a type="button"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"
-                            @click="userStore.logoutUser(); closeDropdown();">
+                            @click="userStore.logoutUser(); closeDropdown(); reloadPage();">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
