@@ -127,7 +127,7 @@ function closeDropdown() {
                         <p class="text-[#df067f] font-extrabold px-1 py-2 dark:text-white text-center">{{
                             userStore.user?.displayName }}</p>
                         <hr>
-                        <RouterLink to="/user/:userId" type="button"
+                        <RouterLink to="/user/:userId" type="button" @click="closeDropdown"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"
                             data-link-id="userPage">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -137,7 +137,7 @@ function closeDropdown() {
                             </svg>
                             <span>Profile</span>
                         </RouterLink>
-                        <a type="button"
+                        <a type="button" @click="closeDropdown"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -150,7 +150,7 @@ function closeDropdown() {
                         <hr>
                         <a type="button"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"
-                            @click="userStore.logoutUser">
+                            @click="userStore.logoutUser(); closeDropdown();">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
