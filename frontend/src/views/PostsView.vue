@@ -1,19 +1,10 @@
 <template>
 	<div class="post my-5">
-		<div v-if="isLoggedIn()" class="post__container flex flex-col items-center">
-			<NewPostForm />
-			<ul class="post-list">
-				<li v-for="post in posts" :key="post.id" class="mt-10">
-					<PostCard :post="post" />
-				</li>
-			</ul>
-		</div>
-		<div v-else class="post__container flex flex-col items-center">
-			<ul class="post-list">
-				<li v-for="post in posts" :key="post.id" class="mt-10">
-					<PostCard :post="post" />
-				</li>
-			</ul>
+		<div class="post__container flex flex-col items-center gap-10">
+			<NewPostForm v-if="isLoggedIn()" />
+			<div v-for="post in posts" :key="post.id">
+				<PostCard :post="post" />
+			</div>
 		</div>
 	</div>
 </template>
