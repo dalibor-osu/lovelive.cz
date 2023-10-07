@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: LoveLiveCZ/Dockerfile
+      args:
+        CONFIGURATION: Development
     ports:
       - '5100:5100'
     depends_on:
