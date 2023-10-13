@@ -8,7 +8,8 @@ public static class Constants
         public const string Prefix = "usr";
 
         public const string Username = "Username";
-        public const string ProfilePicture = "ProfilePicture";
+        public const string HasCustomAvatar = "HasCustomAvatar";
+        public const string HasCustomBanner = "HasCustomBanner";
         public const string PasswordHash = "PasswordHash";
         public const string Bio = "Bio";
     }

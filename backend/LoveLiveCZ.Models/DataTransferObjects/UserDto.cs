@@ -16,4 +16,9 @@ public class UserDto : BasicUserDto
     /// Gets or sets user bio
     /// </summary>
     public string Bio { get; set; }
+    
+    /// <summary>
+    /// Gets or sets whether user has custom banner
+    /// </summary>
+    public bool HasCustomBanner { get; set; }
 }

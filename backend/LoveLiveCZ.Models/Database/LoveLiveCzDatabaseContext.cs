@@ -26,6 +26,9 @@ public class LoveLiveCzDatabaseContext : DbContext
 
         modelBuilder.Entity<User>().HasIndex(x => x.Email).IsUnique();
         modelBuilder.Entity<User>().HasIndex(x => x.Username).IsUnique();
+        
+        modelBuilder.Entity<User>().Property(x => x.HasCustomAvatar).HasDefaultValue(false);
+        modelBuilder.Entity<User>().Property(x => x.HasCustomBanner).HasDefaultValue(false);
         modelBuilder.Entity<User>().Property(x => x.DisplayName).IsRequired();
 
         modelBuilder.Entity<Like>().HasNoKey();

@@ -70,10 +70,23 @@ public class AttachmentManager
 
     public async Task<bool> ChangeUserAvatarAsync(Guid userId, IFormFile file)
     {
+        var path = GetUserAvatarPath(userId);
+        return await ChangeUserImageAsync(userId, file, path);
+    }
+    
+    public async Task<bool> ChangeUserBannerAsync(Guid userId, IFormFile file)
+    {
+        var path = GetUserBannerPath(userId);
+        return await ChangeUserImageAsync(userId, file, path);
+    }
+
+    private async Task<bool> ChangeUserImageAsync(Guid userId, IFormFile file, string path)
+    {
         try
         {
             var image = await Image.LoadAsync(file.OpenReadStream());
-            await image.SaveAsWebpAsync(GetUserAvatarPath(userId));
+            File.Delete(path);
+            await image.SaveAsWebpAsync(path);
             return true;
         }
         catch
@@ -121,6 +134,11 @@ public class AttachmentManager
     private string GetUserAvatarPath(Guid userId)
     {
         return Path.Combine(GetUserAttachmentDirectory(userId), "avatar.webp");
+    }
+    
+    private string GetUserBannerPath(Guid userId)
+    {
+        return Path.Combine(GetUserAttachmentDirectory(userId), "banner.webp");
     }
     
     private string GetUserAttachmentDirectory(Guid userId)
