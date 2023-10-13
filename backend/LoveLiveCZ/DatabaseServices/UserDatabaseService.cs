@@ -123,7 +123,9 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
             UPDATE love_live_cz.""{UsersTable.TableName}""
                 SET
                     ""{IDisplayNameable.ColumnName}"" = @displayName,
-                    ""{UsersTable.ProfilePicture}"" = @profilePicture
+                    ""{UsersTable.Bio}"" = @bio,
+                    ""{UsersTable.HasCustomAvatar}"" = @hasCustomAvatar,
+                    ""{UsersTable.HasCustomBanner}"" = @hasCustomBanner
             WHERE ""{IIdentifiable.ColumnName}"" = @id
             RETURNING *;
         ";

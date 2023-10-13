@@ -119,7 +119,19 @@ public class UserManager
                 return null;
             }
             
-            user.ProfilePicture = "avatar.webp"; // TODO: Remove ProfilePicture property from User model
+            user.HasCustomAvatar = true;
+        }
+        
+        if (userDto.Banner != null)
+        {
+            var success = await _attachmentManager.ChangeUserBannerAsync(userId, userDto.Avatar);
+
+            if (!success)
+            {
+                return null;
+            }
+            
+            user.HasCustomBanner = true;
         }
         
         var result = await _userDatabaseService.UpdateAsync(user);

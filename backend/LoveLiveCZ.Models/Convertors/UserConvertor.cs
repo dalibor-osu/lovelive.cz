@@ -12,7 +12,7 @@ public static class UserConvertor
         {
             Id = source.Id,
             DisplayName = source.DisplayName,
-            ProfilePicture = source.ProfilePicture,
+            HasCustomAvatar = source.HasCustomAvatar,
             Roles = source.Roles
         };
     }
@@ -24,7 +24,8 @@ public static class UserConvertor
             Id = source.Id,
             DisplayName = source.DisplayName,
             Username = source.Username,
-            ProfilePicture = source.ProfilePicture,
+            HasCustomAvatar = source.HasCustomAvatar,
+            HasCustomBanner = source.HasCustomBanner,
             Created = source.Created,
             Roles = source.Roles,
             Bio = source.Bio
@@ -38,25 +39,12 @@ public static class UserConvertor
             Id = source.Id,
             DisplayName = source.DisplayName,
             Username = source.Username,
-            ProfilePicture = source.ProfilePicture,
+            HasCustomAvatar = source.HasCustomAvatar,
+            HasCustomBanner = source.HasCustomBanner,
             Email = source.Email,
             Created = source.Created,
             Updated = source.Updated,
             Roles = source.Roles
-        };
-    }
-
-    public static User ToModel(this FullUserDto source)
-    {
-        return new User
-        {
-            Id = source.Id,
-            Email = source.Email,
-            DisplayName = source.DisplayName,
-            ProfilePicture = source.ProfilePicture,
-            Updated = source.Updated,
-            Created = source.Created,
-            Username = source.Username
         };
     }
 }
