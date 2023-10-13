@@ -128,6 +128,8 @@ public class UserDatabaseService : DatabaseServiceBase, IUserDatabaseService
             RETURNING *;
         ";
         
+        user.Updated = DateTimeOffset.UtcNow;
+        
         var connection = ConnectionFactory();
         var result = await connection.QuerySingleOrDefaultAsync<User>(query, user);
         return result;

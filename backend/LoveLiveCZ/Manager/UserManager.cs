@@ -96,11 +96,32 @@ public class UserManager
         };
     }
 
-    public async Task<FullUserDto> UpdateAsync(Guid userId, FullUserDto userDto)
+    public async Task<FullUserDto> UpdateAsync(Guid userId, UpdateUserDto userDto)
     {
-        userDto.Id = userId;
-        var user = userDto.ToModel();
+        var user = await _userDatabaseService.GetUserAsync(userId);
 
+        if (!string.IsNullOrEmpty(userDto.DisplayName))
+        {
+            user.DisplayName = userDto.DisplayName;
+        }
+        
+        if (!string.IsNullOrEmpty(userDto.Bio))
+        {
+            user.Bio = userDto.Bio;
+        }
+        
+        if (userDto.Avatar != null)
+        {
+            var success = await _attachmentManager.ChangeUserAvatarAsync(userId, userDto.Avatar);
+
+            if (!success)
+            {
+                return null;
+            }
+            
+            user.ProfilePicture = "avatar.webp"; // TODO: Remove ProfilePicture property from User model
+        }
+        
         var result = await _userDatabaseService.UpdateAsync(user);
         return result.ToFullDto();
     }
@@ -108,7 +129,9 @@ public class UserManager
     public async Task<Guid> BanAsync(Guid userId)
     {
         // TODO: Log the ban
+#pragma warning disable CS4014 // We want to run this in the background
         Task.Run(() => _attachmentManager.DeleteAttachmentsForUser(userId));
+#pragma warning restore CS4014
         return await _userDatabaseService.DeleteAsync(userId);
     }
 

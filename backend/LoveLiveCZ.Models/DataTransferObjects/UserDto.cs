@@ -11,4 +11,9 @@ public class UserDto : BasicUserDto
     /// Gets or sets created date
     /// </summary>
     public DateTimeOffset Created { get; set; }
+    
+    /// <summary>
+    /// Gets or sets user bio
+    /// </summary>
+    public string Bio { get; set; }
 }

@@ -6,6 +6,7 @@ import type { LoginResult } from "@/interfaces/user/loginResult";
 import type { Login } from "@/interfaces/user/login";
 import type { User } from "@/interfaces/user/user";
 import Cookies from "js-cookie";
+import type { FullUser } from "@/interfaces/user/fullUser";
 
 const api = mande("/api/user");
 
@@ -72,7 +73,7 @@ export const useUserStore = defineStore("user", {
 		},
 
 		logoutUser(): void {
-			this.user = null;
+			this.user = null as null | FullUser;
 			clearToken();
 		},
 
@@ -85,7 +86,7 @@ export const useUserStore = defineStore("user", {
 
 			try {
 				api.options.headers.Authorization = "Bearer " + token;
-				const response = await api.get<User>("/current");
+				const response = await api.get<FullUser>("/current");
 				this.user = response;
 			}
 			catch (error) {
