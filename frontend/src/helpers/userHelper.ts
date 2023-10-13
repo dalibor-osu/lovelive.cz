@@ -10,7 +10,7 @@ const getUserAvatarPath = (user: BasicUser) => {
 	if (user.profilePicture == null) {
 		return defaultAvatar;
 	}
-	return `${getUserAttachmentPath(user)}/${user.profilePicture}}`;
+	return `${getUserAttachmentPath(user)}/${user.profilePicture}`;
 };
 
 const userHelper = {
