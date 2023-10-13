@@ -26,7 +26,8 @@ public static class UserConvertor
             Username = source.Username,
             ProfilePicture = source.ProfilePicture,
             Created = source.Created,
-            Roles = source.Roles
+            Roles = source.Roles,
+            Bio = source.Bio
         };
     }
     

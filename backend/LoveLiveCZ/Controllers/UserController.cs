@@ -71,7 +71,7 @@ namespace LoveLiveCZ.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<FullUserDto>> GetCurrentUserAsync()
+        public async Task<ActionResult<FullUserDto>> GetCurrentAsync()
         {
             var userId = User.GetUserId();
             
@@ -110,10 +110,16 @@ namespace LoveLiveCZ.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<UserDto>> UpdateAsync([FromBody] FullUserDto userDto)
+        public async Task<ActionResult<FullUserDto>> UpdateAsync([FromForm] UpdateUserDto userDto)
         {
             var userId = User.GetUserId();
             var result = await _userManager.UpdateAsync(userId, userDto);
+            
+            if (result == null)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+            
             return Ok(result);
         }
         

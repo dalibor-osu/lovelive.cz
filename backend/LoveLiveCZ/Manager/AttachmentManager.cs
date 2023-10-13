@@ -2,6 +2,7 @@ using LoveLiveCZ.DatabaseServices.Interfaces;
 using LoveLiveCZ.Models.Database.Models;
 using LoveLiveCZ.Utilities.Constants;
 using LoveLiveCZ.Utilities.Enums;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace LoveLiveCZ.Manager;
 
@@ -67,6 +68,21 @@ public class AttachmentManager
 
     }
 
+    public async Task<bool> ChangeUserAvatarAsync(Guid userId, IFormFile file)
+    {
+        try
+        {
+            var image = await Image.LoadAsync(file.OpenReadStream());
+            await image.SaveAsWebpAsync(GetUserAvatarPath(userId));
+            return true;
+        }
+        catch
+        {
+            // TODO: Log error
+            return false;
+        }
+    }
+
     private async Task<Attachment> SaveFileAsync(IFormFile file, Guid userId, Guid attachmentId)
     {
         var userDirectory = Path.Combine(AttachmentConstants.FilesDirectoryPath, userId.ToString());
@@ -101,9 +117,19 @@ public class AttachmentManager
         File.Delete(filePath);
         return true;
     }
+    
+    private string GetUserAvatarPath(Guid userId)
+    {
+        return Path.Combine(GetUserAttachmentDirectory(userId), "avatar.webp");
+    }
+    
+    private string GetUserAttachmentDirectory(Guid userId)
+    {
+        return Path.Combine(AttachmentConstants.FilesDirectoryPath, userId.ToString());
+    }
 
     private string GetAttachmentPath(Attachment attachment)
     {
-        return Path.Combine(AttachmentConstants.FilesDirectoryPath, attachment.UserId.ToString(), $"{attachment.Id}_{attachment.Name}");
+        return Path.Combine(GetUserAttachmentDirectory(attachment.UserId), $"{attachment.Id}_{attachment.Name}");
     }
 }
