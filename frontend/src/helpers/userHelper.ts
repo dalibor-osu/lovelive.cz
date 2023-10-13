@@ -3,7 +3,7 @@ import type { User } from "@/interfaces/user/user";
 import defaultAvatar from "@/assets/img/default_avatar.webp";
 import defaultBanner from "@/assets/img/default_banner.webp";
 
-const filesPath = `${window.location.origin}/files}`;
+const filesPath = `${window.location.origin}/files`;
 const avatarPath = "avatar.webp";
 const bannerPath = "banner.webp";
 
