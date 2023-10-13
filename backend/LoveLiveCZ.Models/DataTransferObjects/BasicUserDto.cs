@@ -14,11 +14,10 @@ public class BasicUserDto
     /// </summary>
     public string DisplayName { get; set; }
     
-    
     /// <summary>
-    /// Gets or sets path to profile picture
+    /// Gets or sets whether user has custom avatar
     /// </summary>
-    public string ProfilePicture { get; set; }
+    public bool HasCustomAvatar { get; set; }
     
     /// <summary>
     /// Gets or sets roles of the user

@@ -34,10 +34,16 @@ public class User : IIdentifiable, IDisplayNameable, IUsernameable, IEmail, IDel
     public string PasswordHash { get; set; }
 
     /// <summary>
-    /// Get or sets path to profile picture
+    /// Get or sets whether user has custom avatar
     /// </summary>
-    [Column(UsersTable.ProfilePicture)]
-    public string ProfilePicture { get; set; }
+    [Column(UsersTable.HasCustomAvatar)]
+    public bool HasCustomAvatar { get; set; }
+    
+    /// <summary>
+    /// Get or sets whether user has custom banner
+    /// </summary>
+    [Column(UsersTable.HasCustomBanner)]
+    public bool HasCustomBanner { get; set; }
     
     /// <summary>
     /// Gets or sets user bio

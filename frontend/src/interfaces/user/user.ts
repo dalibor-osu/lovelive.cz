@@ -7,5 +7,6 @@ interface PasswordCarrier {
 export interface User extends PasswordCarrier, BasicUser {
     username: string,
     created: Date,
-    bio: string,
+    bio: string | null,
+    hasCustomBanner: boolean,
 }
