@@ -6,7 +6,7 @@
         <span class="post__profile-name font-bold text-lg break-words mobile:w-[220px] py-2">
           {{ post.user.displayName }}
         </span>
-        <img :src="post.user.profilePicture ?? 'https://i.pinimg.com/550x/18/b9/ff/18b9ffb2a8a791d50213a9d595c4dd52.jpg'"
+        <img :src="userHelper.getUserAvatarPath(post.user)"
              alt="avatar"
              class="post__profile-image absolute mobile:relative -top-7 -right-7 mobile:-top-0 mobile:-right-0 mobile:rounded-xl mobile:border-0 mobile:ring-0 rounded-full border-[3px] ring-2 ring-[#df067f] border-white w-[64px] h-[64px] mobile:w-[38px] mobile:h-[38px] ">
       </div>
@@ -74,6 +74,7 @@ import { defineComponent } from "vue";
 import { usePostStore } from "../../stores/postStore";
 import type { Post } from "../../interfaces/post/post";
 import type { Attachment } from "../../interfaces/post/attachment";
+import userHelper from "../../helpers/userHelper";
 
 export default defineComponent({
 	props: {
@@ -81,6 +82,11 @@ export default defineComponent({
 			type: Object as () => Post,
 			required: true,
 		},
+	},
+	setup() {
+		return {
+			userHelper,
+		};
 	},
 	methods: {
 		getAttachmentPath(attachment: Attachment, userId: string): string {

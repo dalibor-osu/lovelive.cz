@@ -1,13 +1,11 @@
+import type { BasicUser } from "./basicUser";
+
 interface PasswordCarrier {
     password: string
 }
 
-export interface User extends PasswordCarrier {
-    id: string,
+export interface User extends PasswordCarrier, BasicUser {
     username: string,
-    displayName: string,
-    profilePicture: string,
-    email: string,
     created: Date,
-    updated: Date,
+    bio: string,
 }
