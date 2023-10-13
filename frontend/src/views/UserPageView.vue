@@ -1,6 +1,6 @@
 <template>
   <div class="user-container">
-    <img :src="user?.profilePicture" alt="user photo">
+    <img :src="userHelper.getUserAvatarPath(user!)" alt="user photo">
     <h1>{{ user?.displayName }}</h1>
   </div>
   <div class="post-container">
@@ -19,11 +19,18 @@ import type { User } from "@/interfaces/user/user";
 import { usePostStore } from "@/stores/postStore";
 import { useUserStore } from "@/stores/userStore";
 import PostCard from "../components/posts/PostCard.vue";
+import userHelper from "@/helpers/userHelper";
 
 export default defineComponent({
 
 	components: {
 		PostCard,
+	},
+
+	setup() {
+		return {
+			userHelper,
+		};
 	},
 
 	data() {
