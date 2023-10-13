@@ -1,4 +1,5 @@
 import type { BasicUser } from "@/interfaces/user/basicUser";
+import defaultAvatar from "@/assets/img/default_avatar.webp";
 
 const getUserAttachmentPath = (user: BasicUser) => {
 	return `${window.location.origin}/files/${user.id}`;
@@ -7,7 +8,7 @@ const getUserAttachmentPath = (user: BasicUser) => {
 
 const getUserAvatarPath = (user: BasicUser) => {
 	if (user.profilePicture == null) {
-		return `${window.location.origin}/src/assets/img/default_avatar.webp`;
+		return defaultAvatar;
 	}
 	return `${getUserAttachmentPath(user)}/${user.profilePicture}}`;
 };
