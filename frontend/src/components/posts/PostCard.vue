@@ -3,12 +3,15 @@
        class="post__card relative bg-gradient-to-br from-[#df067f] to-[#df067f] text-white rounded-xl shadow-xl w-[720px] tablet:w-[600px] mobile:w-[320px]">
     <div class="post__container-card px-4 py-2">
       <div class="flex justify-between items-center">
-        <span class="post__profile-name font-bold text-lg break-words mobile:w-[220px] py-2">
-          {{ post.user.displayName }}
-        </span>
-        <img :src="userHelper.getUserAvatarPath(post.user)"
-             alt="avatar"
-             class="post__profile-image absolute mobile:relative -top-7 -right-7 mobile:-top-0 mobile:-right-0 mobile:rounded-xl mobile:border-0 mobile:ring-0 rounded-full border-[3px] ring-2 ring-[#df067f] border-white w-[64px] h-[64px] mobile:w-[38px] mobile:h-[38px] ">
+        <a :href="`/user/${post.user.id}`">
+          <span class="post__profile-name font-bold text-lg break-words mobile:w-[220px] py-2">
+            {{ post.user.displayName }}
+          </span>
+
+          <img :src="userHelper.getUserAvatarPath(post.user)"
+               alt="avatar"
+               class="post__profile-image absolute mobile:relative -top-7 -right-7 mobile:-top-0 mobile:-right-0 mobile:rounded-xl mobile:border-0 mobile:ring-0 rounded-full border-[3px] ring-2 ring-[#df067f] border-white w-[64px] h-[64px] mobile:w-[38px] mobile:h-[38px] ">
+        </a>
       </div>
       <hr>
       <p class="break-words py-1">
