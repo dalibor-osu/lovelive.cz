@@ -1,8 +1,8 @@
 <template>
-	<div class="user__container">
+	<div v-if="user != null" class="user__container">
 		<div class="user__banner flex flex-col justify-center items-center w-full h-[330px] mobile:h-[220px] relative">
 			<!-- <img src="" alt="User banner"> -->
-			<img src="../assets/img/default_banner.webp" alt="User banner"
+			<img :src="userHelper.getUserBannerPath(user)" alt="User banner"
 				class="w-full h-[330px] mobile:h-[220px] object-cover">
 			<div class="absolute w-full h-full top-0 left-0 bg-gradient-to-t from-[#00000083] from-1% to-transparent" />
 			<idv class="absolute bottom-0 left-0 w-full">
@@ -10,7 +10,7 @@
 					<!-- <img :src="userHelper.getUserAvatarPath(user!)" alt="User profile picture"> -->
 					<div class="flex justify-between items-end">
 						<div class="flex gap-3 mobile:gap-1 items-end">
-							<img src="../assets/img/default_avatar.webp" alt="User profile picture"
+							<img :src="userHelper.getUserAvatarPath(user)" alt="User profile picture"
 								class="max-w-[230px] max-h-[230px] mobile:max-w-[115px] mobile:max-h-[115px]">
 							<div class="flex flex-col items-end py-5 text-white">
 								<h1 class="font-bold text-xl mobile:text-base">{{ user?.displayName }}</h1>
@@ -27,7 +27,7 @@
 		</div>
 		<div class="m-auto py-5 w-[720px] tablet:w-[600px] mobile:w-[320px]">
 			<p class="bio text-justify text-base mobile:text-sm mobile:px-2 dark:text-white">
-				Smejus
+				{{ user.bio ?? "No bio" }}
 			</p>
 		</div>
 	</div>
@@ -58,16 +58,10 @@ import type { Post } from "@/interfaces/post/post";
 import type { User } from "@/interfaces/user/user";
 import { usePostStore } from "@/stores/postStore";
 import { useUserStore } from "@/stores/userStore";
-import PostCard from "../components/posts/PostCard.vue";
 import userHelper from "@/helpers/userHelper";
 import { RouterView } from "vue-router";
 
 export default defineComponent({
-
-	components: {
-		PostCard,
-	},
-
 	setup() {
 		return {
 			userHelper,

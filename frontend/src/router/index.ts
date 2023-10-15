@@ -8,6 +8,7 @@ import UserPageView from "../views/UserPageView.vue";
 import UserPagePostsView from "../views/UserPagePostsView.vue";
 import UserPageMyPostsView from "../views/UserPageMyPostsView.vue";
 import UserPageFavouriteView from "../views/UserPageFavouriteView.vue";
+import UserSettingsViewVue from "@/views/UserSettingsView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +63,11 @@ const router = createRouter({
 					component: UserPageFavouriteView,
 				},
 			],
+		},
+		{
+			path: "/settings",
+			name: "settings",
+			component: UserSettingsViewVue,
 		},
 	],
 });
