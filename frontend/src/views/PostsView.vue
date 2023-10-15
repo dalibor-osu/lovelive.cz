@@ -1,5 +1,5 @@
 <template>
-	<div class="post my-5">
+	<div class="post my-16">
 		<div class="post__container flex flex-col items-center gap-10">
 			<NewPostForm v-if="isLoggedIn()" />
 			<div v-for="post in posts" :key="post.id">
