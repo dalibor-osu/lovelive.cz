@@ -5,6 +5,7 @@ import RegisterView from "../views/RegisterView.vue";
 import AboutView from "../views/AboutView.vue";
 import PostsView from "../views/PostsView.vue";
 import UserPageView from "../views/UserPageView.vue";
+import UserSettingsViewVue from "@/views/UserSettingsView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,11 @@ const router = createRouter({
 			path: "/user/:userId",
 			name: "userPage",
 			component: UserPageView,
+		},
+		{
+			path: "/settings",
+			name: "settings",
+			component: UserSettingsViewVue,
 		},
 	],
 });

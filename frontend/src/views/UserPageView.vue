@@ -1,7 +1,7 @@
 <template>
-  <div class="user-container">
-    <img :src="userHelper.getUserAvatarPath(user!)" alt="user photo">
-    <h1>{{ user?.displayName }}</h1>
+  <div v-if="user != null" class="user-container">
+    <img :src="userHelper.getUserAvatarPath(user)" alt="user photo">
+    <h1>{{ user.displayName }}</h1>
   </div>
   <div class="post-container">
     <ul class="post-list">

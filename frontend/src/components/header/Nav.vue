@@ -143,8 +143,9 @@ function reloadPage() {
                             </svg>
                             <span>Profile</span>
                         </RouterLink>
-                        <a type="button" @click="closeDropdown"
-                            class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]">
+                        <RouterLink to="/settings" type="button" @click="closeDropdown"
+                            class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"
+                            data-link-id="userSettingsPage">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -152,7 +153,7 @@ function reloadPage() {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             <span>Settings</span>
-                        </a>
+                        </RouterLink>
                         <hr>
                         <a type="button"
                             class="flex items-center gap-1 font-bold text-sm text-[#df067f] px-1 py-2 hover:bg-[#ffe9f5] dark:text-white dark:hover:bg-white dark:hover:text-[#000000]"

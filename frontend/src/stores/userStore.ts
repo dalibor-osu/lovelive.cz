@@ -28,7 +28,7 @@ export const useUserStore = defineStore("user", {
 	state: (): UserStore => {
 		return {
 			user: null,
-			userDictionary: {} as Record<string, User>,
+			userDictionary: {},
 		};
 	},
 
@@ -96,28 +96,39 @@ export const useUserStore = defineStore("user", {
 			}
 		},
 
-		async getUser(id: string) {
+		async getUser(id: string): Promise<User | null> {
 			const token = getToken();
 
 			if (token == null) {
-				return;
+				return null;
 			}
 
 			try {
 				api.options.headers.Authorization = "Bearer " + token;
 				const response = await api.get<User>("/" + id);
 				this.userDictionary[id] = response;
+				return response;
 			}
 			catch (error) {
 				//	NOTE(dalibor) This is not a correct behaviour. We should check if the response code is 401 and then clear the token.
 				clearToken();
 				console.log(error);
+				return null;
 			}
+		},
+
+		async updateUser(data: FormData): Promise<void> {
+			const token: string | null = getToken();
+			const request = new XMLHttpRequest();
+			request.open("PUT", "api/user", false);
+			request.setRequestHeader("Authorization", "Bearer " + token ?? "");
+			request.send(data);
+			await this.getCurrentUser();
 		},
 	},
 });
 
   interface UserStore {
-    user: User | null
+    user: null | FullUser
 	userDictionary: Record<string, User>
   }

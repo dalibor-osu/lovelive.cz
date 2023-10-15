@@ -1,8 +1,8 @@
 import type { LoginResultType } from "@/enums/loginResultType";
-import type { User } from "./user";
+import type { FullUser } from "./fullUser";
 
 export interface LoginResult {
     token: string,
     resultType: LoginResultType,
-    user: User | null
+    user: FullUser | null
 }
