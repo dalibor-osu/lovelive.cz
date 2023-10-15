@@ -1,6 +1,10 @@
 <template>
   <form enctype="multipart/form-data" method="post" name="userSettingsForm">
+	<label for="userSettingsAvatarInput">Avatar</label>
     <input id="userSettingsAvatarInput" type="file" name="Avatar" multiple="false" accept="image/jpeg, image/png, image/gif">
+	<label for="userSettingsBannerInput">Banner</label>
+    <input id="userSettingsBannerInput" type="file" name="Banner" multiple="false" accept="image/jpeg, image/png, image/gif">
+	<label for="userSettingsDisplayNameInput">Display Name</label>
     <input id="userSettingsDisplayNameInput" type="text" name="DisplayName" placeholder="Display Name" :value="displayName">
     <button type="button" @click="submitSettings">
       Submit
