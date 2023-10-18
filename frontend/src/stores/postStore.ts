@@ -4,8 +4,8 @@ import { mande } from "mande";
 import Cookies from "js-cookie";
 import type { LikeResult } from "@/interfaces/post/likeResult";
 
-const api = mande("/api/post");
-const interactionApi = mande("api/interaction");
+const api = mande(`${window.location.origin}/api/post`);
+const interactionApi = mande(`${window.location.origin}/api/interaction`);
 
 const setToken = (token: string) => {
 	Cookies.set("token", token);

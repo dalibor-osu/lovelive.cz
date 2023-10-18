@@ -8,7 +8,7 @@ import type { User } from "@/interfaces/user/user";
 import Cookies from "js-cookie";
 import type { FullUser } from "@/interfaces/user/fullUser";
 
-const api = mande("/api/user");
+const api = mande(`${window.location.origin}/api/user`);
 
 const setToken = (token: string) => {
 	Cookies.set("token", token);
