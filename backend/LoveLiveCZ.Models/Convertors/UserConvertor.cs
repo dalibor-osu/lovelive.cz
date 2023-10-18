@@ -44,7 +44,8 @@ public static class UserConvertor
             Email = source.Email,
             Created = source.Created,
             Updated = source.Updated,
-            Roles = source.Roles
+            Roles = source.Roles,
+            Bio = source.Bio
         };
     }
 }
