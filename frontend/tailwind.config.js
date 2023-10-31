@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -29,6 +31,17 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({addVariant}) {
+      addVariant('theme-default', '.theme.theme--default &')
+      addVariant('theme-light', '.theme.theme--light &')
+      addVariant('theme-dark', '.theme.theme--dark &')
+      addVariant('theme-muse', '.theme.theme--muse &')
+      addVariant('theme-aqours', '.theme.theme--aqours &')
+      addVariant('theme-nijigasaki', '.theme.theme--nijigasaki &')
+      addVariant('theme-liella', '.theme.theme--liella &')
+      addVariant('theme-hasunosora', '.theme.theme--hasunosora &')
+    })
+  ],
 }
 
