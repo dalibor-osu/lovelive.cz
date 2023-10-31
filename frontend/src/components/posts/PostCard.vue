@@ -10,7 +10,7 @@
 
           <img :src="userHelper.getUserAvatarPath(post.user)"
                alt="avatar"
-               class="post__profile-image absolute mobile:relative -top-7 -right-7 mobile:-top-0 mobile:-right-0 mobile:rounded-xl mobile:border-0 mobile:ring-0 rounded-full border-[3px] ring-2 ring-[#df067f] border-white w-[64px] h-[64px] mobile:w-[38px] mobile:h-[38px] ">
+               class="post__profile-image absolute mobile:relative -top-7 -right-7 mobile:-top-0 mobile:-right-0 mobile:rounded-xl mobile:border-0 mobile:ring-0 rounded-full border-[3px] ring-2 ring-[#df067f] border-white w-[64px] h-[64px] mobile:w-[38px] mobile:h-[38px] bg-[#df067f]">
         </a>
       </div>
       <hr>
