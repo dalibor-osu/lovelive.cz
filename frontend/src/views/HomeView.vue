@@ -10,11 +10,11 @@ welcomeImg.src = WelcomeImgSrc;
 <template>
   <main class="main flex flex-col justify-center">
     <section
-      :class="`main__welcome relative overflow-hidden flex flex-col items-center justify-center w-full bg-gradient-to-t from-[#df067f] from-10% to-white to-90% dark:from-white dark:to-transparent`">
+      :class="`main__welcome relative overflow-hidden flex flex-col items-center justify-center w-full bg-gradient-to-t from-[#df067f] from-10% to-white to-90%`">
       <div class="main__container relative z-10 max-w-[1280px] flex flex-col items-center justify-center select-none">
         <div class="main__welcome-title flex flex-col items-center justify-end mt-7">
           <h1
-            class="main__welcome-item font-roboto text-5xl tablet:text-4xl mobile:text-3xl w-auto text-[#df067f] font-bold italic dark:text-white">
+            class="main__welcome-item font-roboto text-5xl tablet:text-4xl mobile:text-3xl w-auto text-[#df067f] font-bold italic">
             Welcome to</h1>
           <div class="main__logo w-full h-full flex justify-end">
             <img src="../assets/logo_p.svg" alt="LoveLive! Czechia!!"
