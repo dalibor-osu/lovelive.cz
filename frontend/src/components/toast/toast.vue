@@ -36,7 +36,7 @@
   </template>
   
   <script setup lang="ts">
-  import { defineProps, ref } from 'vue';
+  import { ref } from 'vue';
   import Success from './types/success.vue';
   import Danger from './types/danger.vue';
   import Information from './types/information.vue';
