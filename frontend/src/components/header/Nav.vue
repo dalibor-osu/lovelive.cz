@@ -124,8 +124,9 @@ function reloadPage() {
             <div v-on-click-outside="closeDropdown">
                 <div v-if="userStore.isLoggedIn" class="profile flex items-center justify-center w-[70px] h-[55px]">
                     <img @click="toggleDropdown"
-                        class="profile__img rounded-full border-2 border-[#df067f] w-[55px] h-[55px] dark:border-white"
-                        :src="userHelper.getUserAvatarPath(userStore.user!)">
+                        class="profile__img rounded-full bg-[#df067f] border-[3px] ring-2 ring-[#df067f] border-white w-[55px] h-[55px] dark:border-white"
+                        :src="userHelper.getUserAvatarPath(userStore.user!)"
+                        >
                 </div>
                 <div id="profile-dropdown"
                     :class="isVisiblePfDropdown === false ? `hidden` : `profile__dropdown-content absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#df067f] ring-opacity-5 focus:outline-none dark:ring-white dark:bg-[${constHelper.darkColor}]`">
