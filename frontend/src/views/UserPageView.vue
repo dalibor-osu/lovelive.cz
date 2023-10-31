@@ -18,7 +18,7 @@
 							</div>
 						</div>
 						<button
-							class="cursor-not-allowed flex justify-center items-center rounded-xl my-5 py-1 px-3 font-bold text-sm text-white ring-2 ring-inset ring-white active:bg-white active:text-[#df067f] dark:ring-white dark:bg-[#282b30] dark:text-white dark:active:text-black dark:active:bg-white">
+							class="cursor-not-allowed flex justify-center items-center rounded-xl my-5 py-1 px-3 font-bold text-sm text-white ring-2 ring-inset ring-white active:bg-white active:text-[#df067f] dark:ring-white dark:bg-[#282b30] dark:text-white dark:active:text-black dark:active:bg-white hidden">
 							Edit
 						</button>
 					</div>
