@@ -90,6 +90,7 @@ namespace LoveLiveCZ.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

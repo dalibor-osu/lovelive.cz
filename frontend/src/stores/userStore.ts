@@ -97,21 +97,12 @@ export const useUserStore = defineStore("user", {
 		},
 
 		async getUser(id: string): Promise<User | null> {
-			const token = getToken();
-
-			if (token == null) {
-				return null;
-			}
-
 			try {
-				api.options.headers.Authorization = "Bearer " + token;
 				const response = await api.get<User>("/" + id);
 				this.userDictionary[id] = response;
 				return response;
 			}
 			catch (error) {
-				//	NOTE(dalibor) This is not a correct behaviour. We should check if the response code is 401 and then clear the token.
-				clearToken();
 				console.log(error);
 				return null;
 			}
