@@ -18,7 +18,7 @@
 							</div>
 						</div>
 						<button
-							class="cursor-not-allowed flex justify-center items-center rounded-xl my-5 py-1 px-3 font-bold text-sm text-white ring-2 ring-inset ring-white active:bg-white active:text-[#df067f] dark:ring-white dark:bg-[#282b30] dark:text-white dark:active:text-black dark:active:bg-white hidden">
+							class="cursor-not-allowed flex justify-center items-center rounded-xl my-5 py-1 px-3 font-bold text-sm text-white ring-2 ring-inset ring-white active:bg-white active:text-[#df067f] hidden">
 							Edit
 						</button>
 					</div>
@@ -26,7 +26,7 @@
 			</idv>
 		</div>
 		<div class="m-auto py-5 w-[720px] tablet:w-[600px] mobile:w-[320px]">
-			<p class="bio text-justify text-base mobile:text-sm mobile:px-2 dark:text-white">
+			<p class="bio text-justify text-base mobile:text-sm mobile:px-2">
 				{{ user.bio ?? "No bio" }}
 			</p>
 		</div>
@@ -34,7 +34,7 @@
 	<nav class="user__nav text-[#df067f] flex justify-center gap-10 border-b-[5px] border-[#df067f] h-[49px] relative">
 		<div class="absolute">
 			<RouterLink :to="`/user/${user?.id}`" class="py-[10px] px-4"
-				active-class="border-b-[5px] border-white dark:border-[#282b30]" type="button" data-link-id="posts">
+				active-class="border-b-[5px] border-white" type="button" data-link-id="posts">
 				Posts
 			</RouterLink>
 			<button class="py-[10px] px-4 cursor-not-allowed hidden" active-class="border-b-[5px] border-white" type="button"

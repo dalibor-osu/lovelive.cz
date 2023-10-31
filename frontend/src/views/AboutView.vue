@@ -1,5 +1,5 @@
 <template>
-  <div class="about flex justify-center dark:text-white ">
+  <div class="about flex justify-center">
     <h1>Coming soon...</h1>
   </div>
 </template>

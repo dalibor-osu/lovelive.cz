@@ -1,7 +1,7 @@
 <template>
 	<div class="user-settings flex items-center justify-center py-10">
 		<div class="user-settings__container">
-			<div class="user-settings__card w-full h-full rounded-lg bg-pink-100 dark:bg-[#a7005c] p-5">
+			<div class="user-settings__card w-full h-full rounded-lg bg-pink-100 p-5">
 				<UserSettingsForm />
 			</div>
 		</div>

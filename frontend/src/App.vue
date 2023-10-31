@@ -17,7 +17,7 @@ userStore.getCurrentUser();
 </script>
 
 <template>
-  <div :class="`min-h-screen flex flex-col justify-between dark:bg-[${constHelper.darkColor}]`">
+  <div :class="`min-h-screen flex flex-col justify-between`">
     <Header />
     <div class="space" />
     <Sidenav />
